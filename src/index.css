@@ -4,8 +4,9 @@
   --main: #4E2FD2;
   --accent: #4E2FD2B2;
   --text: #0B0D10;
-  --title-alt: #1F1F1F;
+  --text-alt: #1F1F1F;
   --text-grey: #1F1F1FBF;
+  --text-grey-alt: #484848;
   --text-green: #0AA288;
   --text-blue: #0000EE;
   --text-red: #D8392B;
@@ -14,6 +15,9 @@
   --option-bg: #1DF0BB0A;
   --icon: #525963;
   --icon-bg: #F0F4F7;
+  --icon-length: 30px;
+  --space-md: 15px;
+  --space-sm: 5px;
 
   color: var(--text);
   background: var(--bg);
@@ -21,4 +25,20 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@layer {
+  .step-count {
+    @apply text-xs uppercase px-(--space-md) pt-(--space-md) pb-(--space-sm)
+      tracking-[1.6px] font-medium text-(--text-grey-alt);
+  }
+
+  .icon {
+    @apply w-(--icon-length) h-(--icon-length) bg-(--icon-bg) rounded-xs
+      flex items-center justify-center;
+  }
+  
+  .title {
+    @apply text-2xl text-(--text-alt) font-semibold;
+  }
 }

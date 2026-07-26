@@ -7,11 +7,12 @@
   --text-alt: #1F1F1F;
   --text-grey: #1F1F1FBF;
   --text-grey-alt: #484848;
+  --text-grey-light: #575757;
   --text-green: #0AA288;
   --text-blue: #0000EE;
   --text-red: #D8392B;
   --bg: #fff;
-  --section-bg: #EDF4FF;
+  --category-bg: #EDF4FF;
   --option-bg: #1DF0BB0A;
   --icon: #525963;
   --icon-bg: #F0F4F7;
@@ -28,7 +29,7 @@
 }
 
 @layer {
-  .step-count {
+  .category-count {
     @apply text-xs uppercase px-(--space-md) pt-(--space-md) pb-(--space-sm)
       tracking-[1.6px] font-medium text-(--text-grey-alt);
   }

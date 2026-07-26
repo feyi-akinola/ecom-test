@@ -21,8 +21,11 @@ const ProductSelection = () => {
   if (!data) return (
     <div className="max-w-3xl mx-auto flex flex-col gap-6">
       {
-        Array.from({ length: 4}).map(() =>
-          <div className="w-full h-26 bg-gray-200 rounded-xl animate-pulse"></div>
+        Array.from({ length: 4}).map((_, index) =>
+          <div
+            key={index}
+            className="w-full h-26 bg-gray-200 rounded-xl animate-pulse">
+          </div>
         )
       }
     </div>

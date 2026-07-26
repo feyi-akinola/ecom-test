@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { ProductItem } from '../../api/schema';
+import StepperButton from './StepperButton';
 
 export interface ProductCardProps {
   product: ProductItem;
@@ -64,75 +65,82 @@ const ProductCard = ({
           <h3 className="font-gilroy text-base font-semibold text-gray-900">
             {name}
           </h3>
-          {description && (
-            <p className="text-sm text-gray-500">
-              {description}
-              {" "}
-              <span className="text-(--text-blue) font-medium underline
-                cursor-pointer">
-                Learn More
-              </span>
-            </p>
-          )}
+          {
+            description && (
+              <p className="text-sm text-gray-500">
+                {description}
+                {" "}
+                <span className="text-(--text-blue) font-medium underline
+                  cursor-pointer">
+                  Learn More
+                </span>
+              </p>
+            )
+          }
 
           {/* Options */}
-          {options && options.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {options.map((option) => (
-                <button
-                  key={option}
-                  type="button"
-                  className="rounded-lg border px-1.5 py-0.75 text-[10px]
-                    border-(--icon) text-(--icon)"
-                >
-                  {option}
-                </button>
-              ))}
-            </div>
-          )}
+          {
+            options && options.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {
+                  options.map((option) => (
+                    <button
+                      key={option.name}
+                      type="button"
+                      className="flex rounded-lg border-[0.5px] px-1.5 py-0.75 text-[10px]
+                        items-center border-(--border-light) text-(--text-alt)
+                        cursor-pointer hover:border-(--text-green)"
+                    >
+                      {
+                        option.image && (
+                          <img
+                            className="w-5.5 h-5.5"
+                            src={option.image}
+                            alt={`Option ${option.name}`} />
+                        )
+                      }
+                      <p>{option.name}</p>
+                    </button>
+                  ))
+                }
+              </div>
+            )
+          }
         </div>
 
         <div className="flex flex-row items-center justify-between">
           {/* Quantity stepper */}
           <div className="flex items-center gap-2">
-            <button
-              type="button"
+            <StepperButton
               onClick={() => setLocalQuantity((prev) => prev - 1)}
-              disabled={localQuantity === 0}
-              aria-label={`Decrease quantity of ${name}`}
-              className="flex h-8 w-8 items-center justify-center rounded-md border
-                border-gray-200 text-gray-600 disabled:opacity-40"
-            >
-              −
-            </button>
+              ariaLabel={`Reduce quantity of ${name}`}
+              icon="src/assets/svg/remove.svg"
+              disabled={localQuantity === 0}/>
             <span className="w-4 text-center font-gilroy text-sm font-medium">
               {localQuantity}
             </span>
-            <button
-              type="button"
+            <StepperButton
               onClick={() => setLocalQuantity((prev) => prev + 1)}
-              aria-label={`Increase quantity of ${name}`}
-              className="flex h-8 w-8 items-center justify-center rounded-md border
-                border-gray-200 text-gray-600"
-            >
-              +
-            </button>
+              ariaLabel={`Increase quantity of ${name}`}
+              icon="src/assets/svg/add.svg"
+              disabled={false}/>
           </div>
 
           {/* Price */}
           <div className="text-right">
-            {hasDiscount && (
-              <span className="block text-sm text-(--text-red) line-through">
-                ${price.toFixed(2)}
-              </span>
-            )}
+            {
+              hasDiscount && (
+                <span className="block text-sm text-(--text-red) line-through">
+                  ${price.toFixed(2)}
+                </span>
+              )
+            }
             <span
               className={`font-gilroy text-base ${
                 (hasDiscount ? discountedPrice : price) === 0
                   ? 'text-(--text-green)'
                   : 'text-(--text-grey-light)'
-              }`}
-            >
+              }`}>
               {formatPrice(hasDiscount ? (discountedPrice as number) : price)}
             </span>
           </div>

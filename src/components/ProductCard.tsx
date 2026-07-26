@@ -33,7 +33,7 @@ const ProductCard = ({
       {
         hasDiscount && (
           <span className="absolute top-2 left-3 rounded-full bg-(--main) px-2.5
-            py-0.5 font-gilroy text-xs font-semibold text-white">
+            py-0.5 text-xs font-semibold text-white">
             Save {discountPct}%
           </span>
         )
@@ -62,7 +62,7 @@ const ProductCard = ({
       <div className="flex flex-1 flex-col justify-center gap-2.5">
         {/* Title & description */}
         <div className="flex flex-col gap-2">
-          <h3 className="font-gilroy text-base font-semibold text-gray-900">
+          <h3 className="text-base font-semibold text-gray-900">
             {name}
           </h3>
           {
@@ -116,7 +116,7 @@ const ProductCard = ({
               ariaLabel={`Reduce quantity of ${name}`}
               icon="src/assets/svg/remove.svg"
               disabled={localQuantity === 0}/>
-            <span className="w-4 text-center font-gilroy text-sm font-medium">
+            <span className="w-4 text-center text-sm font-medium">
               {localQuantity}
             </span>
             <StepperButton
@@ -136,7 +136,7 @@ const ProductCard = ({
               )
             }
             <span
-              className={`font-gilroy text-base ${
+              className={`text-base ${
                 (hasDiscount ? discountedPrice : price) === 0
                   ? 'text-(--text-green)'
                   : 'text-(--text-grey-light)'

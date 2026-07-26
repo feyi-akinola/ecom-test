@@ -29,6 +29,55 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@theme {
+  --font-gilroy: "Gilroy", sans-serif;
+}
+
+/* Light - 300 */
+@font-face {
+  font-family: 'Gilroy';
+  src: url('./assets/fonts/Gilroy-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Regular - 400 */
+@font-face {
+  font-family: 'Gilroy';
+  src: url('./assets/fonts/Gilroy-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Medium - 500 */
+@font-face {
+  font-family: 'Gilroy';
+  src: url('./assets/fonts/Gilroy-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Semi Bold - 600 */
+@font-face {
+  font-family: 'Gilroy';
+  src: url('./assets/fonts/Gilroy-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bold - 700 */
+@font-face {
+  font-family: 'Gilroy';
+  src: url('./assets/fonts/Gilroy-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer {
   .category-count {
     @apply text-xs uppercase px-(--space-md) pt-(--space-md) pb-(--space-sm)

@@ -30,7 +30,7 @@ const Step = ({
       <div className="flex items-center justify-between border-t-[0.5px]
         border-(--text-alt) p-4">
         <div className="flex gap-2 items-center">
-          <img src={icon} alt="Menu toggle" className=""/>
+          <img src={icon} alt="Menu toggle" className="w-6.5 h-6.5"/>
           <div className="title">{title}</div>
         </div>
 

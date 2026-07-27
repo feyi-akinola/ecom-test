@@ -1,10 +1,12 @@
 import { z } from "zod";
 
 export const ProductItemSchema = z.object({
+  id: z.uuid(),
   name: z.string(),
   description: z.string().nullable(),
   options: z.array(
     z.object({
+      id: z.uuid(),
       name: z.string(),
       image: z.string().nullable()
     })

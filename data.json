@@ -8,17 +8,17 @@
         {
           "id": "611cc71c-1002-4512-81ed-9000340425c6",
           "name": "White",
-          "image": "/images/wyze-battery-cam-pro.png"
+          "image": "/images/white-wyze-cam-v4.png"
         },
         {
           "id": "7de1b136-69cf-4b62-82b5-83185064e3a1",
           "name": "Grey",
-          "image": "/images/wyze-battery-cam-pro.png"
+          "image": "/images/grey-wyze-cam-v4.png"
         },
         {
           "id": "97e7ffc3-83b9-47cc-97ec-0cfb0945494a",
           "name": "Black",
-          "image": "/images/wyze-battery-cam-pro.png"
+          "image": "/images/black-wyze-cam-v4.png"
         }
       ],
       "price": 35.98,
@@ -33,12 +33,12 @@
         {
           "id": "a8dd913a-e153-416e-b41a-bb13a490cfc3",
           "name": "White",
-          "image": "/images/wyze-battery-cam-pro.png"
+          "image": "/images/white-wyze-cam-pan-v3.png"
         },
         {
           "id": "ae1681b8-dce9-4717-9f22-d0590cda7db7",
           "name": "Black",
-          "image": "/images/wyze-battery-cam-pro.png"
+          "image": "/images/black-wyze-cam-pan-v3.png"
         }
       ],
       "price": 39.98,
@@ -53,12 +53,12 @@
         {
           "id": "6b595843-c077-4d5a-89c2-42266120a6b8",
           "name": "White",
-          "image": "/images/wyze-battery-cam-pro.png"
+          "image": "/images/white-wyze-cam-floodlight-v2.png"
         },
         {
           "id": "57788de0-463f-4ca5-998d-5b5ccc4a461d",
           "name": "Black",
-          "image": "/images/wyze-battery-cam-pro.png"
+          "image": "/images/black-wyze-cam-floodlight-v2.png"
         }
       ],
       "price": 89.98,
@@ -82,12 +82,12 @@
         {
           "id": "f3261177-7529-48ae-9137-9ea9e2a62ec3",
           "name": "White",
-          "image": "/images/wyze-battery-cam-pro.png"
+          "image": "/images/white-wyze-battery-cam-pro.png"
         },
         {
           "id": "cfe0d56c-392e-499c-946a-9124d682ae78",
           "name": "Black",
-          "image": "/images/wyze-battery-cam-pro.png"
+          "image": "/images/black-wyze-battery-cam-pro.png"
         }
       ],
       "price": 89.98,
@@ -126,5 +126,15 @@
       "image": null
     }
   ],
-  "protection": []
+  "protection": [
+    {
+      "id": "f7439f90-d64a-4e5f-a82d-7309b6fa51d2",
+      "name": "Wyze MicroSD Card (256GB)",
+      "description": null,
+      "options": null,
+      "price": 20.98,
+      "discountedPrice": null,
+      "image": "images/wyze-micro-sd-card-256gb.png"
+    }
+  ]
 }

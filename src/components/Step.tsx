@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Category } from "./ProductSelection";
 import ProductCard from "./ProductCard";
 import Button from "./Button";
+import { useCartStore, getCartKey } from "../../store/useCartStore";
 
 type StepProps = {
   category: Category;
@@ -13,6 +14,18 @@ const Step = ({
   index
 } : StepProps) => {
   const [menuOpen, setMenuOpen] = useState<boolean>(index == 0);
+
+  const selectedCount = useCartStore((state) =>
+    products.reduce((count, product) => {
+      const hasQuantity = product.options && product.options.length > 0
+        ? product.options.some(
+            (option) => (state.quantities[getCartKey(product.id, option.id)] ?? 0) > 0
+          )
+        : (state.quantities[getCartKey(product.id, null)] ?? 0) > 0;
+  
+      return count + (hasQuantity ? 1 : 0);
+    }, 0)
+  );
 
   const handleMenuToggle = () => {
     setMenuOpen((prev) => !prev);
@@ -37,7 +50,14 @@ const Step = ({
           <div className="title">{title}</div>
         </div>
 
-        <div className="menu">
+        <div className="flex items-center gap-xs-3">
+          {
+            menuOpen && selectedCount > 0 && (
+              <p className="font-medium text-main text-sm-2">
+                {selectedCount} selected
+              </p>
+            )
+          }
           <img 
             src="src/assets/svg/menu-toggle.svg" 
             alt="Menu toggle"

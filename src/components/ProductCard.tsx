@@ -1,23 +1,30 @@
-import { useState } from "react";
 import type { ProductItem } from "../../api/schema";
 import StepperButton from "./StepperButton";
+import { useCartStore, useSelectedOption, useProductQuantity, useProductHasSelection } from "../../store/useCartStore";
 
 export interface ProductCardProps {
   product: ProductItem;
 }
 
-const ProductCard = ({
-  product: {
+const ProductCard = ({ product }: ProductCardProps) => {
+  const selectedOption = useSelectedOption(product);
+  const quantity = useProductQuantity(product);
+  const selectOption = useCartStore((state) => state.selectOption);
+  const increment = useCartStore((state) => state.increment);
+  const decrement = useCartStore((state) => state.decrement);
+
+  const {
+    id,
     name,
     description,
     options,
     price,
     discountedPrice,
     image
-  },
-}: ProductCardProps) => {
-  const [localQuantity, setLocalQuantity] = useState<number>(0);
+  } = product;
 
+  const hasSelection = useProductHasSelection(product);
+  
   const hasDiscount =
     typeof discountedPrice === "number" && discountedPrice < price;
   const discountPct = hasDiscount
@@ -29,7 +36,8 @@ const ProductCard = ({
 
   return (
     <div className={`relative flex gap-4 rounded-lg bg-white p-sm-4
-      ${localQuantity > 0 && "border-sm border-accent"} tracking-sm`}>
+      border-sm ${hasSelection ? "border-accent" : "border-white"}
+      tracking-sm`}>
       {/* Discount */}
       {
         hasDiscount && (
@@ -84,29 +92,40 @@ const ProductCard = ({
 
           {/* Options */}
           {
-            options && options.length > 0 && (
-              <div className="flex flex-wrap gap-sm">
+            options && (
+              <div className="flex flex-wrap gap-xs">
                 {
-                  options.map((option) => (
-                    <button
-                      key={option.name}
-                      type="button"
-                      className="flex rounded-xs border-xs px-xs py-xs-5
-                        items-center border-border-light cursor-pointer
-                        hover:border-green hover:bg-green-light">
-                      {
-                        option.image && (
-                          <img
-                            className="size-sm"
-                            src={option.image}
-                            alt={`Option ${option.name}`} />
-                        )
-                      }
-                      <p className="text-xs text-alt font-medium">
-                        {option.name}
-                      </p>
-                    </button>
-                  ))
+                  options.map((option) => {
+                    const isSelected = selectedOption === option.id;
+                    const isOnlyOption = options.length === 1;
+
+                    return (
+                      <button
+                        key={option.id}
+                        type="button"
+                        disabled={isOnlyOption}
+                        onClick={() => selectOption(id, option.id)}
+                        className={`flex rounded-sm border-xs px-xs py-xs-5 items-center
+                          relative hover:bg-icon-bg transition-colors duration-200
+                          ${isOnlyOption ? "cursor-default" : "cursor-pointer"}
+                          ${isSelected
+                            ? "border-green bg-green-light"
+                            :  "border-border-light"
+                          }`}>
+                        {
+                          option.image && (
+                            <img
+                              className="size-sm"
+                              src={option.image}
+                              alt={`Option ${option.name}`} />
+                          )
+                        }
+                        <p className="text-xs text-alt font-medium">
+                          {option.name}
+                        </p>
+                      </button>
+                    );
+                  })
                 }
               </div>
             )
@@ -117,15 +136,15 @@ const ProductCard = ({
           {/* Quantity stepper */}
           <div className="w-xl flex items-center p-[7.5px] justify-between">
             <StepperButton
-              onClick={() => setLocalQuantity((prev) => prev - 1)}
+              onClick={() => decrement(product)}
               ariaLabel={`Reduce quantity of ${name}`}
               icon="src/assets/svg/remove.svg"
-              disabled={localQuantity === 0}/>
+              disabled={quantity === 0}/>
             <span className="text-center text-md font-medium tracking-none">
-              {localQuantity}
+              {quantity}
             </span>
             <StepperButton
-              onClick={() => setLocalQuantity((prev) => prev + 1)}
+              onClick={() => increment(product)}
               ariaLabel={`Increase quantity of ${name}`}
               icon="src/assets/svg/add.svg"
               disabled={false}/>

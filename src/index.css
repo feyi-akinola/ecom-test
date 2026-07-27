@@ -14,6 +14,7 @@
   /* Colors */
   --color-main: #4E2FD2;
   --color-accent: #4E2FD2B2;
+  --color-accent-light: #4E2FD220;
   --color-dark: #0B0D10;
   --color-alt: #1F1F1F;
   --color-grey: #1F1F1FBF;
@@ -33,6 +34,7 @@
   /* Text Sizes */
   --text-xs: 10px;
   --text-sm: 12px;
+  --text-sm-2: 14px;
   --text-md: 16px;
   --text-md-2: 18px;
   --text-lg: 22px;
@@ -50,6 +52,7 @@
   /* Custom Dimensions (Width/Height utilities) */
   --size-2xs: 8px;
   --size-xs: 12px;
+  --size-xs-2: 16px;
   --size-sm: 22px;
   --size-sm-2: 20px;
   --size-md: 26px;

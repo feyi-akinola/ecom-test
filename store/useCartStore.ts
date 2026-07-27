@@ -16,6 +16,8 @@ interface CartState {
   selectOption: (productId: string, optionId: string) => void;
   increment: (product: ProductItem) => void;
   decrement: (product: ProductItem) => void;
+  incrementByKey: (product: string, optionId: string | null) => void;
+  decrementByKey: (product: string, optionId: string | null) => void;
 }
 
 export const useCartStore = create<CartState>((set, get) => ({
@@ -44,6 +46,19 @@ export const useCartStore = create<CartState>((set, get) => ({
       quantities: { ...quantities, [key]: Math.max(0, (quantities[key] ?? 0) - 1) },
     });
   },
+
+  incrementByKey: (productId: string, optionId: string | null) => {
+    const key = getCartKey(productId, optionId);
+    set((state) => ({
+      quantities: { ...state.quantities, [key]: (state.quantities[key] ?? 0) + 1 },
+    }));
+  },
+  decrementByKey: (productId: string, optionId: string | null) => {
+    const key = getCartKey(productId, optionId);
+    set((state) => ({
+      quantities: { ...state.quantities, [key]: Math.max(0, (state.quantities[key] ?? 0) - 1) },
+    }));
+  },
 }));
 
 export function useSelectedOption(product: ProductItem) {
@@ -57,6 +72,10 @@ export function useProductQuantity(product: ProductItem) {
     const option = state.selectedOptions[product.id] ?? getDefaultOption(product.options);
     return state.quantities[getCartKey(product.id, option)] ?? 0;
   });
+}
+
+export function useOptionQuantity(productId: string, optionId: string) {
+  return useCartStore((state) => state.quantities[getCartKey(productId, optionId)] ?? 0);
 }
 
 export function useProductHasSelection(product: ProductItem) {

@@ -19,7 +19,7 @@ const ProductSelection = () => {
   }
 
   if (!data) return (
-    <div className="max-w-3xl mx-auto flex flex-col gap-6">
+    <div className="max-w-3xl flex flex-col gap-6">
       {
         Array.from({ length: 4}).map((_, index) =>
           <div
@@ -59,7 +59,7 @@ const ProductSelection = () => {
   ];
 
   return (
-    <div className="max-w-190 mx-auto flex flex-col gap-md-2">
+    <div className="w-full max-w-190 flex flex-col gap-md-2">
       {
         categories.map((category, index) =>
           <Step key={index} category={category} index={index}/>

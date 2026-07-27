@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { Category } from "./ProductSelection";
 import ProductCard from "./ProductCard";
-import Button from "./Button";
+import NextButton from "./NextButton";
 import { useCartStore, getCartKey } from "../../store/useCartStore";
 
 type StepProps = {
@@ -37,7 +37,7 @@ const Step = ({
     <div
       className={`flex flex-col rounded-lg ${menuOpen && "bg-category-bg"}`}>
       {/* Step count */}
-      <p className="step-count leading-full">Step {index + 1} of 4</p>
+      <p className="step-count leading-compact">Step {index + 1} of 4</p>
 
       {/* Icon, title & menu toggle */}
       <div
@@ -84,7 +84,7 @@ const Step = ({
 
         {/* Next button */}
         {
-          nextText && <Button text={nextText} onClick={handleNextClick}/>
+          nextText && <NextButton text={nextText} onClick={handleNextClick}/>
         }
       </div>
     </div>

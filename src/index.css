@@ -20,6 +20,9 @@
   --color-grey: #1F1F1FBF;
   --color-grey-alt: #484848;
   --color-grey-light: #575757;
+  --color-fade-light: #CED6DE;
+  --color-fade: #A8B2BD;
+  --color-fade-dark: #6F7882;
   --color-green: #0AA288;
   --color-green-light: #1DF0BB0A;
   --color-blue: #0000EE;
@@ -36,8 +39,10 @@
   --text-sm: 12px;
   --text-sm-2: 14px;
   --text-md: 16px;
-  --text-md-2: 18px;
+  --text-md-2: 17px;
+  --text-md-3: 18px;
   --text-lg: 22px;
+  --text-xl: 24px;
 
   /* Border Sizes */
   --border-width-xs: 0.5px;
@@ -45,7 +50,9 @@
 
   /* Border Radius */
   --radius-xs: 2px;
+  --radius-xs-3: 3px;
   --radius-sm: 4px;
+  --radius-sm-2: 5px;
   --radius-md: 7px;
   --radius-lg: 10px;
 
@@ -57,16 +64,30 @@
   --size-sm-2: 20px;
   --size-md: 26px;
   --size-lg: 30px;
+  --size-lg-2: 41px;
+  --size-lg-3: 72px;
+  --size-lg-4: 78px;
   --size-xl: 80px;
   --size-2xl: 101px;
+  --size-3xl: 399px;
+
+  --width-md-2: 29px;
   --width-lg: 30px;
   --width-lg-2: 39px;
+  --width-lg-3: 72px;
   --width-xl: 80px;
   --width-2xl: 101px;
+  --width-2xl-2: 156px;
+  --width-3xl: 399px;
+
   --height-lg: 30px;
   --height-lg-2: 39px;
+  --height-lg-3: 72px;
+  --height-lg-4: 78px;
   --height-xl: 80px;
   --height-2xl: 101px;
+  --height-2xl-2: 156px;
+  --height-3xl: 399px;
 
   /* Spacing (p-*, gap-* etc.) */
   --spacing-xs-5: 2px;
@@ -86,15 +107,21 @@
   --spacing-xl: 20px;
   --spacing-2xl: 24px;
   --spacing-2xl-2: 25px;
+  --spacing-2xl-3: 29px;
+  --spacing-3xl: 31px;
 
   /* Letter Spacing */
+  --tracking-tight: -5%;
   --tracking-none: 0px;
+  --tracking-sm-rel: 0.5%;
   --tracking-sm: 0.6px;
   --tracking-md: 1.6px;
 
   /* Line Height */
+  --leading-short: 16px;
   --leading-track: 24px;
-  --leading-full: 100%;
+  --leading-compact: 100%;
+  --leading-medium: 120%;
   --leading-tall: 130%;
 }
   
@@ -144,6 +171,15 @@
   font-display: swap;
 }
 
+/* Regular Italic - 400 */
+@font-face {
+  font-family: 'Gilroy';
+  src: url('./assets/fonts/Gilroy-RegularItalic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
 @layer {
   .step-count {
     @apply text-xs uppercase p-md-4 pb-xs-2 tracking-md font-medium
@@ -156,6 +192,6 @@
   }
   
   .title {
-    @apply leading-full text-lg text-alt font-semibold;
+    @apply leading-compact text-lg text-alt font-semibold;
   }
 }

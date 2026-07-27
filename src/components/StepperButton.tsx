@@ -1,6 +1,7 @@
 interface StepperButtonProps {
   icon: string;
   disabled: boolean;
+  light?: boolean;
   ariaLabel: string;
   onClick: () => void;
 }
@@ -8,6 +9,7 @@ interface StepperButtonProps {
 const StepperButton = ({
   icon,
   disabled,
+  light = false,
   ariaLabel,
   onClick,
 }: StepperButtonProps) => {
@@ -17,8 +19,9 @@ const StepperButton = ({
       onClick={!disabled ? onClick : undefined}
       aria-label={ariaLabel}
       disabled={disabled}
-      className={`flex size-sm-2 items-center justify-center rounded-sm
-        ${disabled ? "border-sm border-icon-bg" : "bg-icon-bg cursor-pointer"}`}
+      className={`flex size-sm-2 items-center justify-center rounded-sm cursor-pointer
+        transition-coloirs duration-200 ${!disabled && "hover:bg-accent-light"}
+        ${disabled ? "border-sm border-icon-bg" : light ? "bg-white" : "bg-icon-bg"}`}
     >
       <img
         src={icon}

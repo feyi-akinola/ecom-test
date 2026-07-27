@@ -1,0 +1,262 @@
+import { useProductData } from "../../hooks/useProductData";
+import type { ProductItem } from "../../api/schema";
+import { useCartStore, getCartKey } from "../../store/useCartStore";
+import StepperButton from "./StepperButton";
+import Button from "./Button";
+
+interface ReviewPanelSection {
+  label: string;
+  products: ProductItem[];
+}
+
+interface LineItem {
+  product: ProductItem;
+  optionId: string | null;
+  optionName: string | null;
+  optionImage: string | null;
+  quantity: number;
+}
+
+const formatPrice = (value: number) => (value === 0 ? "FREE" : `$${value.toFixed(2)}`);
+
+const ReviewPanel = () => {
+  const { data, error } = useProductData();
+  const quantities = useCartStore((state) => state.quantities);
+  const incrementByKey = useCartStore((state) => state.incrementByKey);
+  const decrementByKey = useCartStore((state) => state.decrementByKey);
+
+  if (error) return <div></div>;
+  if (!data) {
+    return <div className="w-full max-w-md rounded-xl bg-section-bg h-96 animate-pulse" />;
+  }
+  const sections: ReviewPanelSection[] = [
+    { label: "Cameras", products: data.cameras },
+    { label: "Sensors", products: data.sensors },
+    { label: "Accessories", products: data.protection },
+    { label: "Plan", products: data.plans },
+  ];
+
+  const getLineItems = (products: ProductItem[]): LineItem[] => {
+    const lines: LineItem[] = [];
+    for (const product of products) {
+      if (!product.options || product.options.length === 0) {
+        const qty = quantities[getCartKey(product.id, null)] ?? 0;
+        if (qty > 0) {
+          lines.push({ product, optionId: null, optionName: null, optionImage: null, quantity: qty });
+        }
+        continue;
+      }
+      for (const option of product.options) {
+        const qty = quantities[getCartKey(product.id, option.id)] ?? 0;
+        if (qty > 0) {
+          lines.push({
+            product,
+            optionId: option.id,
+            optionName: option.name,
+            optionImage: option.image ?? null,
+            quantity: qty,
+          });
+        }
+      }
+    }
+    return lines;
+  };
+
+  const allLines = sections.flatMap((section) => getLineItems(section.products));
+
+  const subtotal = allLines.reduce((sum, line) => {
+    const unitPrice = line.product.discountedPrice ?? line.product.price;
+    return sum + unitPrice * line.quantity;
+  }, 0);
+
+  const originalSubtotal = allLines.reduce(
+    (sum, line) => sum + line.product.price * line.quantity,
+    0
+  );
+
+  const savings = originalSubtotal - subtotal;
+
+  const handleSaveCart = () => {
+    //
+  }
+
+  return (
+    <div className="w-3xl h-full rounded-lg bg-category-bg flex flex-col">
+      <p className="text-sm font-medium tracking-md text-grey-alt uppercase
+        leading-compact p-md-4 pb-xs-2">
+        Review
+      </p>
+
+      <div className="flex flex-col p-xl gap-sm-3">
+        <div className="flex flex-col gap-xs-2">
+          <h2 className="text-lg font-semibold text-alt leading-compact">
+            Your security system
+          </h2>
+          <p className="text-sm-2 font-medium text-grey leading-tall">
+            Review your personalized protection system designed to keep what matters most safe.
+          </p>
+        </div>
+        
+        {
+          sections.map((section) => {
+            const lines = getLineItems(section.products);
+            if (lines.length === 0) return null;
+
+            return (
+              <div
+                key={section.label}
+                className="flex flex-col gap-md border-t-xs border-fade-light pt-md-4">
+                <p className="text-sm tracking-wide text-fade uppercase">
+                  {section.label}
+                </p>
+
+                {lines.map((line) => {
+                  const { product, optionId, optionName, optionImage, quantity } = line;
+                  const unitPrice = product.discountedPrice ?? product.price;
+                  const hasDiscount =
+                    typeof product.discountedPrice === "number" &&
+                    product.discountedPrice < product.price;
+
+                  return (
+                    <div 
+                      key={getCartKey(product.id, optionId)}
+                      className="flex justify-between">
+                      {/* Image and name */}
+                      <div className="flex items-center gap-md">
+                        <img
+                          src={product.image ?? ""}
+                          alt={product.name}
+                          className="size-lg-2 shrink-0 rounded-sm-2 object-contain bg-white"
+                        />
+
+                        <div className="flex flex-1 flex-col gap-xs-5">
+                          <p className="text-sm-2 text-alt font-medium tracking-sm-rel leading-short
+                            w-2xl-2">
+                            {product.name}
+                          </p>
+                          {
+                            optionName && (
+                              <p className="text-xs font-medium text-grey">
+                                {optionName}
+                              </p>
+                            )
+                          }
+                        </div>
+                      </div>
+
+                      <div className="flex gap-md items-center">
+                        {/* Stepper */}
+                        <div className="flex justify-between w-lg-3">
+                          <StepperButton
+                            onClick={() => decrementByKey(product.id, optionId)}
+                            ariaLabel={`Reduce quantity of ${product.name}`}
+                            icon="src/assets/svg/remove.svg"
+                            disabled={false}
+                            light
+                          />
+                          <span className="text-center text-sm-2 font-medium">
+                            {quantity}
+                          </span>
+                          <StepperButton
+                            onClick={() => incrementByKey(product.id, optionId)}
+                            ariaLabel={`Increase quantity of ${product.name}`}
+                            icon="src/assets/svg/add.svg"
+                            disabled={false}
+                            light
+                          />
+                        </div>
+
+                        {/* Price */}
+                        <div className="flex flex-col items-end gap-xs-4 text-sm-2">
+                          {hasDiscount && (
+                            <span className="text-fade-dark line-through">
+                              ${product.price.toFixed(2)}
+                            </span>
+                          )}
+                          <span className={`font-semibold ${unitPrice === 0 ? "text-green" : "text-main"}`}>
+                            {formatPrice(unitPrice)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })
+        }
+
+        { /* Fast Shipping */ }
+        <div className="flex items-center gap-sm-4 border-t-xs border-alt pt-md">
+          <div className="size-lg-2 shrink-0 rounded-lg bg-white flex items-center justify-center">
+            <img
+              src="src/assets/svg/shipping.svg"
+              alt="Fast Shipping"
+              className="w-md-2" />
+          </div>
+          <p className="flex-1 text-sm-2 text-dark font-medium">
+            Fast Shipping
+          </p>
+          <div className="flex flex-col items-end gap-xs-4 text-sm-2">
+            <span className="text-fade-dark line-through">
+              $5.99
+            </span>
+            <span className="font-semibold text-green">
+              FREE
+            </span>
+          </div>
+        </div>
+
+        {/* Satisfaction */}
+        <div className="flex items-end justify-between gap-md">
+          <img
+            src={"/images/guarantee.png"}
+            alt={"Satisfaction Badge "}
+            className="size-lg-4 shrink-0 object-contain"
+          />
+
+          <div className="flex flex-col items-end gap-xs">
+            <span className="rounded-xs-3 bg-main px-sm py-xs-2 text-sm font-medium
+              text-white leading-compact tracking-tight">
+              as low as $19.19/mo
+            </span>
+
+            <div className="flex items-baseline gap-xs">
+              <span className="text-md-3 text-fade-dark line-through font-medium">
+                ${originalSubtotal.toFixed(2)}
+              </span>
+              <span className="text-2xl font-bold text-main">
+                ${subtotal.toFixed(2)}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="w-full flex flex-col items-center px-md-4">
+        {
+          savings > 0 && (
+            <p className="text-sm font-semibold text-green mb-xs-3">
+              Congrats! You're saving ${savings.toFixed(2)} on your security bundle!
+            </p>
+          )
+        }
+
+        <Button
+          onClick={() => alert("Checkout is not implemented in this prototype.")}
+          text="Checkout"/>
+
+      <button
+        type="button"
+        onClick={handleSaveCart}
+        className="mt-sm mb-3xl text-center text-sm text-grey underline
+          italic leading-medium cursor-pointer hover:opacity-80
+          transition-opacity duration-200">
+        Save my system for later
+      </button>
+      </div>
+    </div>
+  );
+};
+
+export default ReviewPanel;

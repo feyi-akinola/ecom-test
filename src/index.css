@@ -1,28 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --main: #4E2FD2;
-  --accent: #4E2FD2B2;
-  --text: #0B0D10;
-  --text-alt: #1F1F1F;
-  --text-grey: #1F1F1FBF;
-  --text-grey-alt: #484848;
-  --text-grey-light: #575757;
-  --text-green: #0AA288;
-  --text-blue: #0000EE;
-  --text-red: #D8392B;
-  --bg: #fff;
-  --category-bg: #EDF4FF;
-  --option-bg: #1DF0BB0A;
-  --border-light: #CCCCCC;
-  --icon: #525963;
-  --icon-bg: #F0F4F7;
-  --icon-length: 30px;
-  --space-md: 15px;
-  --space-sm: 5px;
-
-  color: var(--text);
-  background: var(--bg);
+  background: #fff;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -31,7 +10,91 @@
 
 @theme {
   --font-gilroy: "Gilroy", sans-serif;
+
+  /* Colors */
+  --color-main: #4E2FD2;
+  --color-accent: #4E2FD2B2;
+  --color-dark: #0B0D10;
+  --color-alt: #1F1F1F;
+  --color-grey: #1F1F1FBF;
+  --color-grey-alt: #484848;
+  --color-grey-light: #575757;
+  --color-green: #0AA288;
+  --color-green-light: #1DF0BB0A;
+  --color-blue: #0000EE;
+  --color-red: #D8392B;
+  --color-white: #fff;
+  --color-category-bg: #EDF4FF;
+  --color-option-bg: #1DF0BB0A;
+  --color-border-light: #CCCCCC;
+  --color-icon: #525963;
+  --color-icon-bg: #F0F4F7;
+
+  /* Text Sizes */
+  --text-xs: 10px;
+  --text-sm: 12px;
+  --text-md: 16px;
+  --text-md-2: 18px;
+  --text-lg: 22px;
+
+  /* Border Sizes */
+  --border-width-xs: 0.5px;
+  --border-width-sm: 2px;
+
+  /* Border Radius */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 7px;
+  --radius-lg: 10px;
+
+  /* Custom Dimensions (Width/Height utilities) */
+  --size-2xs: 8px;
+  --size-xs: 12px;
+  --size-sm: 22px;
+  --size-sm-2: 20px;
+  --size-md: 26px;
+  --size-lg: 30px;
+  --size-xl: 80px;
+  --size-2xl: 101px;
+  --width-lg: 30px;
+  --width-lg-2: 39px;
+  --width-xl: 80px;
+  --width-2xl: 101px;
+  --height-lg: 30px;
+  --height-lg-2: 39px;
+  --height-xl: 80px;
+  --height-2xl: 101px;
+
+  /* Spacing (p-*, gap-* etc.) */
+  --spacing-xs-5: 2px;
+  --spacing-xs-4: 3px;
+  --spacing-xs-3: 4px;
+  --spacing-xs-2: 5px;
+  --spacing-xs: 6px;
+  --spacing-sm: 8px;
+  --spacing-sm-2: 9px;
+  --spacing-sm-3: 10px;
+  --spacing-sm-4: 11px;
+  --spacing-md: 12px;
+  --spacing-md-2: 13px;
+  --spacing-md-3: 14px;
+  --spacing-md-4: 15px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+  --spacing-2xl: 24px;
+  --spacing-2xl-2: 25px;
+
+  /* Letter Spacing */
+  --tracking-none: 0px;
+  --tracking-sm: 0.6px;
+  --tracking-md: 1.6px;
+
+  /* Line Height */
+  --leading-track: 24px;
+  --leading-full: 100%;
+  --leading-tall: 130%;
 }
+  
 
 /* Light - 300 */
 @font-face {
@@ -79,17 +142,17 @@
 }
 
 @layer {
-  .category-count {
-    @apply text-xs uppercase px-(--space-md) pt-(--space-md) pb-(--space-sm)
-      tracking-[1.6px] font-medium text-(--text-grey-alt);
+  .step-count {
+    @apply text-xs uppercase p-md-4 pb-xs-2 tracking-md font-medium
+      text-grey-alt;
   }
 
   .icon {
-    @apply w-(--icon-length) h-(--icon-length) bg-(--icon-bg) rounded-xs
-      flex items-center justify-center;
+    @apply size-lg bg-icon-bg rounded-xs flex
+      items-center justify-center;
   }
   
   .title {
-    @apply text-2xl text-(--text-alt) font-semibold;
+    @apply leading-full text-lg text-alt font-semibold;
   }
 }

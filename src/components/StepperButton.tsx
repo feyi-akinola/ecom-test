@@ -17,13 +17,13 @@ const StepperButton = ({
       onClick={!disabled ? onClick : undefined}
       aria-label={ariaLabel}
       disabled={disabled}
-      className="flex h-5 w-5 items-center justify-center rounded-sm
-        bg-(--icon-bg) border-gray-200 disabled:opacity-40 cursor-pointer"
+      className={`flex size-sm-2 items-center justify-center rounded-sm
+        ${disabled ? "border-sm border-icon-bg" : "bg-icon-bg cursor-pointer"}`}
     >
       <img
         src={icon}
         alt={"Stepper button"}
-        className="stroke-red-500"/>
+        className={`size-2xs ${disabled && "opacity-30"}`}/>
     </button>
   );
 };

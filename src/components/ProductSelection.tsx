@@ -59,7 +59,7 @@ const ProductSelection = () => {
   ];
 
   return (
-    <div className="max-w-3xl mx-auto flex flex-col gap-2">
+    <div className="max-w-190 mx-auto flex flex-col gap-md-2">
       {
         categories.map((category, index) =>
           <Step key={index} category={category} index={index}/>

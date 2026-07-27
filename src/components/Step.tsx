@@ -22,15 +22,18 @@ const Step = ({
 
   return (
     <div
-      className={`flex flex-col rounded-xl pb-4 ${menuOpen && "bg-(--category-bg)"}`}>
+      className={`flex flex-col rounded-lg ${menuOpen && "bg-category-bg"}`}>
       {/* Step count */}
-      <p className="category-count">Step {index + 1} of 4</p>
+      <p className="step-count leading-full">Step {index + 1} of 4</p>
 
-      {/* Title & menu toggle */}
-      <div className="flex items-center justify-between border-t-[0.5px]
-        border-(--text-alt) p-4">
-        <div className="flex gap-2 items-center">
-          <img src={icon} alt="Menu toggle" className="w-6.5 h-6.5"/>
+      {/* Icon, title & menu toggle */}
+      <div
+        className={`flex items-center justify-between border-t-xs
+          cursor-pointer border-alt px-md-4 py-xl
+          ${!menuOpen && "border-b-xs"}`}
+        onClick={handleMenuToggle}>
+        <div className="flex items-center gap-sm">
+          <img src={icon} alt="Menu toggle" className="size-md"/>
           <div className="title">{title}</div>
         </div>
 
@@ -38,16 +41,20 @@ const Step = ({
           <img 
             src="src/assets/svg/menu-toggle.svg" 
             alt="Menu toggle"
-            className={`cursor-pointer ${menuOpen && "rotate-180"}`}
-            onClick={handleMenuToggle} />
+            className={`size-xs ${menuOpen && "rotate-180"}`}/>
         </div>
       </div>
       
       {/* Products */}
       <div
-        className={`${!menuOpen && "hidden"} flex flex-col items-center`}>
+        className={`${!menuOpen && "hidden"} flex flex-col items-center
+          gap-md pb-xl`}>
         <div
-          className="w-full grid grid-cols-1 md:grid-cols-2 gap-2 p-2 pb-4">
+          className="w-full grid grid-cols-1 md:grid-cols-2
+            px-md-4 gap-md-4
+            [&>*:last-child:nth-child(odd)]:md:col-span-2
+            [&>*:last-child:nth-child(odd)]:md:justify-self-center
+            [&>*:last-child:nth-child(odd)]:md:w-1/2">
           {
             products.map((p, index) =>
               <ProductCard key={index} product={p} />

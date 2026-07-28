@@ -63,7 +63,9 @@ const ReviewPanel = () => {
   };
 
   const allLines = sections.flatMap((section) => getLineItems(section.products));
-
+  
+  const isCartEmpty = allLines.length === 0;
+  
   const subtotal = allLines.reduce((sum, line) => {
     const unitPrice = line.product.discountedPrice ?? line.product.price;
     return sum + unitPrice * line.quantity;
@@ -81,7 +83,7 @@ const ReviewPanel = () => {
   }
 
   return (
-    <div className="w-3xl h-full rounded-lg bg-category-bg flex flex-col">
+    <div className="w-full md:w-3xl h-full md:rounded-lg bg-category-bg flex flex-col">
       <p className="text-sm font-medium tracking-md text-grey-alt uppercase
         leading-compact p-md-4 pb-xs-2">
         Review
@@ -112,7 +114,11 @@ const ReviewPanel = () => {
 
                 {lines.map((line) => {
                   const { product, optionId, optionName, optionImage, quantity } = line;
+
                   const unitPrice = product.discountedPrice ?? product.price;
+                  const lineTotal = unitPrice * quantity;
+                  const originalLineTotal = product.price * quantity;
+
                   const hasDiscount =
                     typeof product.discountedPrice === "number" &&
                     product.discountedPrice < product.price;
@@ -157,6 +163,7 @@ const ReviewPanel = () => {
                           <span className="text-center text-sm-2 font-medium">
                             {quantity}
                           </span>
+                          
                           <StepperButton
                             onClick={() => incrementByKey(product.id, optionId)}
                             ariaLabel={`Increase quantity of ${product.name}`}
@@ -170,11 +177,11 @@ const ReviewPanel = () => {
                         <div className="flex flex-col items-end gap-xs-4 text-sm-2">
                           {hasDiscount && (
                             <span className="text-fade-dark line-through">
-                              ${product.price.toFixed(2)}
+                              ${originalLineTotal.toFixed(2)}
                             </span>
                           )}
-                          <span className={`font-semibold ${unitPrice === 0 ? "text-green" : "text-main"}`}>
-                            {formatPrice(unitPrice)}
+                          <span className={`font-semibold ${lineTotal === 0 ? "text-green" : "text-main"}`}>
+                            {formatPrice(lineTotal)}
                           </span>
                         </div>
                       </div>
@@ -244,6 +251,7 @@ const ReviewPanel = () => {
 
         <Button
           onClick={() => alert("Checkout is not implemented in this prototype.")}
+          disabled={isCartEmpty}
           text="Checkout"/>
 
       <button

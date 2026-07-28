@@ -1,20 +1,23 @@
 interface ButtonProps {
   text: string;
+  disabled?: boolean;
   onClick: () => void;
 }
 
-const Button = ({text, onClick} : ButtonProps) => {
+const Button = ({text, disabled = false, onClick} : ButtonProps) => {
   return (
-    <div
-      className="flex w-full h-lg-2 rounded-md border text-white
-        cursor-pointer items-center bg-main justify-center
-        hover:opacity-90 transition-opacity duration-200"
-      onClick={onClick}>
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      className={`flex w-full h-lg-2 rounded-md border text-white
+        items-center justify-center transition-opacity duration-200
+        ${disabled ? "bg-fade-dark" : "bg-main hover:opacity-90 cursor-pointer"}`}>
       <p className="w-full text-md-2 leading-track traking-none font-bold
         text-center">
         {text}
       </p>
-    </div>
+    </button>
   );
 };
 

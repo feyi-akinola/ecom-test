@@ -1,10 +1,9 @@
 import { create } from "zustand";
 import type { ProductItem } from "../api/schema";
+import { getCartKey } from "./cartKey";
+import { initialQuantities, initialSelectedOptions } from "./seedInitialCart";
 
-const NO_OPTION = "no-option";
-
-export const getCartKey = (productId: string, optionId: string | null) =>
-  `${productId}::${optionId ?? NO_OPTION}`;
+export { getCartKey };
 
 export const getDefaultOption = (options: ProductItem["options"]): string | null =>
   options && options.length === 1 ? options[0].id : null;
@@ -21,8 +20,8 @@ interface CartState {
 }
 
 export const useCartStore = create<CartState>((set, get) => ({
-  quantities: {},
-  selectedOptions: {},
+  quantities: initialQuantities,
+  selectedOptions: initialSelectedOptions,
 
   selectOption: (productId, optionId) => {
     set((state) => ({

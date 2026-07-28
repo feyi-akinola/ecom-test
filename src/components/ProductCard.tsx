@@ -41,12 +41,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <div className={`relative flex md:flex-col lg:flex-row gap-4 rounded-lg
-      bg-white p-sm-4 h-full tracking-sm
+      bg-white p-sm-4 h-full tracking-sm items-center
       border-sm ${hasSelection ? "border-accent" : "border-white"}`}>
       {/* Discount */}
       {
         hasDiscount && (
-          <span className="absolute rounded-lg bg-main
+          <span className="absolute rounded-lg bg-main top-sm-4 left-sm-4
             px-xs py-xs-5 text-sm font-semibold text-white tracking-none
             leading-tall text-center">
             Save {discountPct}%
@@ -79,9 +79,18 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <div className="flex flex-col gap-sm-3">
           {/* Title & description */}
           <div className="flex flex-col gap-sm">
-            <h3 className="text-md text-alt font-semibold">
-              {name}
-            </h3>
+            {
+              name == "Cam Unlimited" ? (
+                <h3 className="text-md text-alt font-bold">
+                  Cam <span className="text-main">Unlimited</span>
+                </h3>
+              ) : (
+                <h3 className="text-md text-alt font-semibold">
+                  {name}
+                </h3>
+              )
+            }
+            
             {
               description && (
                 <p className="text-sm text-grey font-medium leading-tall">

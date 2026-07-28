@@ -10,12 +10,14 @@
 
 @theme {
   --font-gilroy: "Gilroy", sans-serif;
+  --font-tt-norms-pro: "TT Norms Pro", sans-serif;
 
   /* Colors */
   --color-main: #4E2FD2;
   --color-accent: #4E2FD2B2;
   --color-accent-light: #4E2FD220;
   --color-dark: #0B0D10;
+  --color-black: #000000;
   --color-alt: #1F1F1F;
   --color-grey: #1F1F1FBF;
   --color-grey-alt: #484848;
@@ -72,6 +74,7 @@
   --size-2xl: 101px;
   --size-3xl: 399px;
 
+  --width-sm-2: 20px;
   --width-md-2: 29px;
   --width-lg: 30px;
   --width-lg-2: 39px;
@@ -81,6 +84,7 @@
   --width-2xl-2: 156px;
   --width-3xl: 399px;
 
+  --height-sm-2: 20px;
   --height-lg: 30px;
   --height-lg-2: 39px;
   --height-lg-3: 72px;
@@ -181,6 +185,15 @@
   src: url('./assets/fonts/Gilroy-RegularItalic.ttf') format('truetype');
   font-weight: 400;
   font-style: italic;
+  font-display: swap;
+}
+
+/* TT Norms Pro Bold - 700 */
+@font-face {
+  font-family: 'TT Norms Pro';
+  src: url('./assets/fonts/TT-Norms-Pro-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
   font-display: swap;
 }
 

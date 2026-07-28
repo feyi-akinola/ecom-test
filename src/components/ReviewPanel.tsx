@@ -107,7 +107,7 @@ const ReviewPanel = () => {
             return (
               <div
                 key={section.label}
-                className="flex flex-col gap-md border-t-xs border-fade-light pt-md-4">
+                className="flex flex-col gap-sm border-t-xs border-fade-light pt-md-4">
                 <p className="text-sm tracking-wide text-fade uppercase">
                   {section.label}
                 </p>
@@ -123,23 +123,35 @@ const ReviewPanel = () => {
                     typeof product.discountedPrice === "number" &&
                     product.discountedPrice < product.price;
 
+                  const isCamUnlimitedPlan = product.name === "Cam Unlimited";
+
                   return (
                     <div 
                       key={getCartKey(product.id, optionId)}
                       className="flex justify-between">
                       {/* Image and name */}
-                      <div className="flex items-center gap-md">
+                      <div className={`flex items-center ${isCamUnlimitedPlan ? "gap-xs-4" : "gap-md"}`}>
                         <img
                           src={product.image ?? ""}
                           alt={product.name}
-                          className="size-lg-2 shrink-0 rounded-sm-2 object-contain bg-white"
+                          className={
+                            isCamUnlimitedPlan ? "w-sm-2"
+                            : "size-lg-2 shrink-0 rounded-sm-2 object-contain"}
                         />
 
                         <div className="flex flex-1 flex-col gap-xs-5">
-                          <p className="text-alt w-2xl-2 font-medium tracking-sm-rel leading-short
-                            text-sm sm:text-sm-2">
-                            {product.name}
-                          </p>
+                          {
+                            isCamUnlimitedPlan ? (
+                              <p className="text-md text-black font-bold leading-full">
+                                Cam <span className="text-main">Unlimited</span>
+                              </p>
+                            ) : (
+                              <p className="text-alt w-2xl-2 font-medium tracking-sm-rel
+                                leading-short text-sm sm:text-sm-2">
+                                {product.name}
+                              </p>
+                            )
+                          }
                           {
                             optionName && (
                               <p className="text-xs font-medium text-fade-dark">
@@ -195,7 +207,7 @@ const ReviewPanel = () => {
         }
 
         { /* Fast Shipping */ }
-        <div className="flex items-center gap-sm-4 border-t-xs border-alt pt-md">
+        <div className="flex items-center gap-sm-4 border-t-xs border-fade-light pt-md">
           <div className="size-lg-2 shrink-0 rounded-lg bg-white flex items-center justify-center">
             <img
               src="src/assets/svg/shipping.svg"

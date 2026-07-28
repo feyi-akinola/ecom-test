@@ -14,7 +14,7 @@ const Button = ({text, disabled = false, onClick} : ButtonProps) => {
         items-center justify-center transition-opacity duration-200
         ${disabled ? "bg-fade-dark" : "bg-main hover:opacity-90 cursor-pointer"}`}>
       <p className="w-full text-md-2 leading-track traking-none font-bold
-        text-center">
+        text-center font-tt-norms-pro">
         {text}
       </p>
     </button>

@@ -32,9 +32,11 @@ const ReviewPanel = () => {
   const incrementByKey = useCartStore((state) => state.incrementByKey);
   const decrementByKey = useCartStore((state) => state.decrementByKey);
 
-  if (error) return <div></div>;
+  if (error) return null;
   if (!data) {
-    return <div className="w-full max-w-container-builder rounded-xl bg-section-bg h-96 animate-pulse" />;
+    return (
+      <div className="w-full max-w-container-builder rounded-xl bg-icon-bg h-96 animate-pulse" />
+    );
   }
   const sections: ReviewPanelSection[] = [
     { label: "Cameras", products: data.cameras },

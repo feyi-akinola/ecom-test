@@ -2,6 +2,7 @@ import Step from "./Step";
 import { useProductData } from "../../hooks/useProductData";
 import type { ProductItem } from "../../api/schema";
 import { useEffect, useRef, useState } from "react";
+import Error from "./Error";
 
 export interface Category {
   title: string;
@@ -26,7 +27,9 @@ const ProductSelection = () => {
 
   if (error) {
     return (
-      <div></div>
+      <div className="h-screen w-screen flex items-center justify center px-lg">
+        <Error />
+      </div>
     );
   }
 
@@ -36,7 +39,7 @@ const ProductSelection = () => {
         Array.from({ length: 4}).map((_, index) =>
           <div
             key={index}
-            className="w-full h-26 bg-gray-200 rounded-xl animate-pulse">
+            className="w-full h-26 bg-icon-bg rounded-xl animate-pulse">
           </div>
         )
       }

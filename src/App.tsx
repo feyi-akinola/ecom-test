@@ -5,7 +5,7 @@ export default function App() {
   return (
     <div className="w-full font-gilroy tracking-none leading-compact
       flex flex-col lg:flex-row md:gap-2xl-3 justify-center items-center
-      lg:items-start md:my-4xl">
+      lg:items-start md:my-4xl md:px-sm">
       <ProductSelection />
       <ReviewPanel />
     </div>

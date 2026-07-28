@@ -36,7 +36,10 @@ const Step = forwardRef<HTMLDivElement, StepProps>(({
       ref={ref}
       className={`flex flex-col md:rounded-lg ${isOpen && "bg-category-bg"}`}>
       {/* Step count */}
-      <p className="step-count leading-compact">Step {index + 1} of 4</p>
+      <p className="text-xs uppercase px-md-4 py-xs-2 md:pt-sm text-grey-alt
+        tracking-md font-medium leading-compact">
+        Step {index + 1} of 4
+      </p>
 
       {/* Icon, title & menu toggle */}
       <div
@@ -46,7 +49,9 @@ const Step = forwardRef<HTMLDivElement, StepProps>(({
         onClick={onToggle}>
         <div className="flex items-center gap-sm">
           <img src={icon} alt="Menu toggle" className="size-md"/>
-          <div className="title">{title}</div>
+          <div className="leading-compact text-md-3 md:text-lg text-alt font-semibold">
+            {title}
+          </div>
         </div>
 
         <div className="flex items-center gap-xs-3">

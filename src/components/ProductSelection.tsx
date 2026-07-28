@@ -31,7 +31,7 @@ const ProductSelection = () => {
   }
 
   if (!data) return (
-    <div className="max-w-3xl flex flex-col gap-6">
+    <div className="max-w-container-builder flex flex-col gap-6">
       {
         Array.from({ length: 4}).map((_, index) =>
           <div
@@ -71,7 +71,7 @@ const ProductSelection = () => {
   ];
   
   return (
-    <div className="w-full max-w-190 flex flex-col">
+    <div className="w-full max-w-container-builder flex flex-col">
       <h1 className="text-2xl font-bold text-alt pt-xl pb-3xl text-center
         block md:hidden">
         Let's Get Started!

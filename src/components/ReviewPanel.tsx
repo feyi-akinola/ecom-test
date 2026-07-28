@@ -34,7 +34,7 @@ const ReviewPanel = () => {
 
   if (error) return <div></div>;
   if (!data) {
-    return <div className="w-full max-w-md rounded-xl bg-section-bg h-96 animate-pulse" />;
+    return <div className="w-full max-w-container-builder rounded-xl bg-section-bg h-96 animate-pulse" />;
   }
   const sections: ReviewPanelSection[] = [
     { label: "Cameras", products: data.cameras },
@@ -110,8 +110,8 @@ const ReviewPanel = () => {
   }
 
   return (
-    <div className="w-full lg:w-3xl max-w-190 h-full md:rounded-lg bg-category-bg flex
-      min-w-93 flex-col">
+    <div className="w-full lg:w-container-review max-w-container-builder h-full md:rounded-lg
+      bg-category-bg flex min-w-review flex-col">
       <p className="text-sm font-medium tracking-md text-grey-alt uppercase
         leading-compact p-md-4 pb-xs-2">
         Review

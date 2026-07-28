@@ -47,7 +47,7 @@ const CheckoutModal = ({ isOpen, onClose, total, savings }: CheckoutModalProps) 
         aria-modal="true"
         aria-labelledby="checkout-modal-title"
         onClick={(e) => e.stopPropagation()}
-        className="w-3xl rounded-xl bg-white p-2xl-3 flex flex-col items-center
+        className="w-container-review rounded-xl bg-white p-2xl-3 flex flex-col items-center
           gap-xl text-center shadow-xl">
 
         <div className="flex flex-col gap-xs">

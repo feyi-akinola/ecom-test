@@ -82,7 +82,10 @@
   --width-xl: 80px;
   --width-2xl: 101px;
   --width-2xl-2: 156px;
-  --width-3xl: 399px;
+  --width-container-review: 399px;
+  --max-width-container-review: 399px;
+  --max-width-container-builder: 760px;
+  --min-width-review: 372px;
 
   --height-sm-2: 20px;
   --height-lg: 30px;
@@ -92,7 +95,6 @@
   --height-xl: 80px;
   --height-2xl: 101px;
   --height-2xl-2: 156px;
-  --height-3xl: 399px;
 
   /* Spacing (p-*, gap-* etc.) */
   --spacing-xs-5: 2px;
@@ -141,8 +143,8 @@
 
 /* Light - 300 */
 @font-face {
-  font-family: 'Gilroy';
-  src: url('./assets/fonts/Gilroy-Light.ttf') format('truetype');
+  font-family: "Gilroy";
+  src: url("./assets/fonts/Gilroy-Light.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -150,8 +152,8 @@
 
 /* Regular - 400 */
 @font-face {
-  font-family: 'Gilroy';
-  src: url('./assets/fonts/Gilroy-Regular.ttf') format('truetype');
+  font-family: "Gilroy";
+  src: url("./assets/fonts/Gilroy-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -159,8 +161,8 @@
 
 /* Medium - 500 */
 @font-face {
-  font-family: 'Gilroy';
-  src: url('./assets/fonts/Gilroy-Medium.ttf') format('truetype');
+  font-family: "Gilroy";
+  src: url("./assets/fonts/Gilroy-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -168,8 +170,8 @@
 
 /* Semi Bold - 600 */
 @font-face {
-  font-family: 'Gilroy';
-  src: url('./assets/fonts/Gilroy-SemiBold.ttf') format('truetype');
+  font-family: "Gilroy";
+  src: url("./assets/fonts/Gilroy-SemiBold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -177,8 +179,8 @@
 
 /* Bold - 700 */
 @font-face {
-  font-family: 'Gilroy';
-  src: url('./assets/fonts/Gilroy-Bold.ttf') format('truetype');
+  font-family: "Gilroy";
+  src: url("./assets/fonts/Gilroy-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -186,8 +188,8 @@
 
 /* Regular Italic - 400 */
 @font-face {
-  font-family: 'Gilroy';
-  src: url('./assets/fonts/Gilroy-RegularItalic.ttf') format('truetype');
+  font-family: "Gilroy";
+  src: url("./assets/fonts/Gilroy-RegularItalic.ttf") format("truetype");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -195,25 +197,9 @@
 
 /* TT Norms Pro Bold - 700 */
 @font-face {
-  font-family: 'TT Norms Pro';
-  src: url('./assets/fonts/TT-Norms-Pro-Bold.ttf') format('truetype');
+  font-family: "TT Norms Pro";
+  src: url("./assets/fonts/TT-Norms-Pro-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
-}
-
-@layer {
-  .step-count {
-    @apply text-xs uppercase px-md-4 py-xs-2 md:pt-sm text-grey-alt
-      tracking-md font-medium;
-  }
-
-  .icon {
-    @apply size-lg bg-icon-bg rounded-xs flex items-center
-      justify-center;
-  }
-  
-  .title {
-    @apply leading-compact text-md-3 md:text-lg text-alt font-semibold;
-  }
 }

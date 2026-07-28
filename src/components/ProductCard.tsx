@@ -156,7 +156,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               onClick={() => decrement(product)}
               ariaLabel={`Reduce quantity of ${name}`}
               icon="src/assets/svg/remove.svg"
-              disabled={quantity === 0 || product.required}/>
+              disabled={quantity === 0 || (product.required ?? false)}/>
             <span className="text-center text-md font-medium tracking-none">
               {quantity}
             </span>
@@ -164,7 +164,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               onClick={() => increment(product)}
               ariaLabel={`Increase quantity of ${name}`}
               icon="src/assets/svg/add.svg"
-              disabled={product.required}/>
+              disabled={product.required ?? false}/>
           </div>
 
           {/* Price */}

@@ -142,7 +142,7 @@ const ReviewPanel = () => {
                 </p>
 
                 {lines.map((line) => {
-                  const { product, optionId, optionName, optionImage, quantity } = line;
+                  const { product, optionId, optionName, quantity } = line;
 
                   const unitPrice = product.discountedPrice ?? product.price;
                   const lineTotal = unitPrice * quantity;
@@ -200,7 +200,7 @@ const ReviewPanel = () => {
                                 onClick={() => decrementByKey(product.id, optionId)}
                                 ariaLabel={`Reduce quantity of ${product.name}`}
                                 icon="src/assets/svg/remove.svg"
-                                disabled={product.required}
+                                disabled={product.required ?? false}
                                 light
                               />
                               <span className="text-center text-sm sm:text-sm-2 font-medium
@@ -212,7 +212,7 @@ const ReviewPanel = () => {
                                 onClick={() => incrementByKey(product.id, optionId)}
                                 ariaLabel={`Increase quantity of ${product.name}`}
                                 icon="src/assets/svg/add.svg"
-                                disabled={product.required}
+                                disabled={product.required ?? false}
                                 light
                               />
                             </div>

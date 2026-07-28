@@ -39,6 +39,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const formatPrice =
     (value: number) => (value === 0 ? "FREE" : `$${value.toFixed(2)}`);
 
+  const isCamUnlimitedPlan = name == "Cam Unlimited";
+
   return (
     <div className={`relative flex md:flex-col lg:flex-row gap-4 rounded-lg
       bg-white p-sm-4 h-full tracking-sm items-center
@@ -80,7 +82,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           {/* Title & description */}
           <div className="flex flex-col gap-sm">
             {
-              name == "Cam Unlimited" ? (
+              isCamUnlimitedPlan ? (
                 <h3 className="text-md text-alt font-bold">
                   Cam <span className="text-main">Unlimited</span>
                 </h3>
@@ -154,7 +156,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               onClick={() => decrement(product)}
               ariaLabel={`Reduce quantity of ${name}`}
               icon="src/assets/svg/remove.svg"
-              disabled={quantity === 0}/>
+              disabled={quantity === 0 || product.required}/>
             <span className="text-center text-md font-medium tracking-none">
               {quantity}
             </span>
@@ -162,7 +164,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               onClick={() => increment(product)}
               ariaLabel={`Increase quantity of ${name}`}
               icon="src/assets/svg/add.svg"
-              disabled={false}/>
+              disabled={product.required}/>
           </div>
 
           {/* Price */}

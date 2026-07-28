@@ -19,9 +19,9 @@ const StepperButton = ({
       onClick={!disabled ? onClick : undefined}
       aria-label={ariaLabel}
       disabled={disabled}
-      className={`flex size-sm-2 items-center justify-center rounded-sm cursor-pointer
+      className={`flex size-sm-2 items-center justify-center rounded-sm
         transition-coloirs duration-200 ${!disabled && "hover:bg-accent-light"}
-        ${disabled ? "border-sm border-icon-bg" : light ? "bg-white" : "bg-icon-bg"}`}
+        ${disabled ? "border-sm border-icon-bg" : light ? "bg-white cursor-pointer" : "bg-icon-bg cursor-pointer"}`}
     >
       <img
         src={icon}

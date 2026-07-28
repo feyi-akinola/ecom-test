@@ -14,6 +14,8 @@ export const ProductItemSchema = z.object({
   price: z.number(),
   discountedPrice: z.number().nullable(),
   image: z.string().nullable(),
+  required: z.boolean().optional(),
+  noIncrement: z.boolean().optional()
 });
 
 export const DataObjectSchema = z.object({

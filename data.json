@@ -112,7 +112,8 @@
       "options": null,
       "price": 29.92,
       "discountedPrice": 0,
-      "image": "/images/wyze-sense-hub.png"
+      "image": "/images/wyze-sense-hub.png",
+      "required": true
     }
   ],
   "plans": [
@@ -123,7 +124,9 @@
       "options": null,
       "price": 12.99,
       "discountedPrice": 9.99,
-      "image": "/images/cam-unlimited.png"
+      "image": "/images/cam-unlimited.png",
+      "required": true,
+      "noIncrement": true
     }
   ],
   "protection": [

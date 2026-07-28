@@ -1,12 +1,18 @@
+import { forwardRef } from "react";
+
 interface ButtonProps {
   text: string;
   disabled?: boolean;
   onClick: () => void;
 }
 
-const Button = ({text, disabled = false, onClick} : ButtonProps) => {
+const Button = forwardRef<HTMLButtonElement, ButtonProps>((
+  {text, disabled = false, onClick} : ButtonProps,
+  ref
+) => {
   return (
     <button
+      ref={ref}
       type="button"
       onClick={onClick}
       disabled={disabled}
@@ -19,6 +25,6 @@ const Button = ({text, disabled = false, onClick} : ButtonProps) => {
       </p>
     </button>
   );
-};
+});
 
 export default Button;

@@ -3,6 +3,8 @@ import type { ProductItem } from "../../api/schema";
 import { useCartStore, getCartKey } from "../../store/useCartStore";
 import StepperButton from "./StepperButton";
 import Button from "./Button";
+import ConfirmationModal from "./ConfirmationModal";
+import { useState } from "react";
 
 interface ReviewPanelSection {
   label: string;
@@ -21,6 +23,7 @@ const formatPrice = (value: number) => (value === 0 ? "FREE" : `$${value.toFixed
 
 const ReviewPanel = () => {
   const { data, error } = useProductData();
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState<boolean>(false);
   const quantities = useCartStore((state) => state.quantities);
   const incrementByKey = useCartStore((state) => state.incrementByKey);
   const decrementByKey = useCartStore((state) => state.decrementByKey);
@@ -83,7 +86,8 @@ const ReviewPanel = () => {
   }
 
   return (
-    <div className="w-full lg:w-3xl max-w-190 h-full md:rounded-lg bg-category-bg flex flex-col">
+    <div className="w-full lg:w-3xl max-w-190 h-full md:rounded-lg bg-category-bg flex
+      min-w-93 flex-col">
       <p className="text-sm font-medium tracking-md text-grey-alt uppercase
         leading-compact p-md-4 pb-xs-2">
         Review
@@ -164,26 +168,30 @@ const ReviewPanel = () => {
 
                       <div className="flex gap-md items-center">
                         {/* Stepper */}
-                        <div className="flex justify-between w-lg-3">
-                          <StepperButton
-                            onClick={() => decrementByKey(product.id, optionId)}
-                            ariaLabel={`Reduce quantity of ${product.name}`}
-                            icon="src/assets/svg/remove.svg"
-                            disabled={false}
-                            light
-                          />
-                          <span className="text-center text-sm sm:text-sm-2 font-medium">
-                            {quantity}
-                          </span>
-                          
-                          <StepperButton
-                            onClick={() => incrementByKey(product.id, optionId)}
-                            ariaLabel={`Increase quantity of ${product.name}`}
-                            icon="src/assets/svg/add.svg"
-                            disabled={false}
-                            light
-                          />
-                        </div>
+                        {
+                          !product.noIncrement && (
+                            <div className="flex justify-between w-lg-3">
+                              <StepperButton
+                                onClick={() => decrementByKey(product.id, optionId)}
+                                ariaLabel={`Reduce quantity of ${product.name}`}
+                                icon="src/assets/svg/remove.svg"
+                                disabled={product.required}
+                                light
+                              />
+                              <span className="text-center text-sm sm:text-sm-2 font-medium">
+                                {quantity}
+                              </span>
+                              
+                              <StepperButton
+                                onClick={() => incrementByKey(product.id, optionId)}
+                                ariaLabel={`Increase quantity of ${product.name}`}
+                                icon="src/assets/svg/add.svg"
+                                disabled={product.required}
+                                light
+                              />
+                            </div>
+                          )
+                        }
 
                         {/* Price */}
                         <div className="flex flex-col items-end text-sm sm:text-sm-2
@@ -263,7 +271,7 @@ const ReviewPanel = () => {
         }
 
         <Button
-          onClick={() => alert("Checkout is not implemented in this prototype.")}
+          onClick={() => setIsCheckoutOpen(true)}
           disabled={isCartEmpty}
           text="Checkout"/>
 
@@ -276,6 +284,13 @@ const ReviewPanel = () => {
           Save my system for later
         </button>
       </div>
+
+      <ConfirmationModal
+        isOpen={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
+        total={subtotal}
+        savings={savings}
+      />
     </div>
   );
 };

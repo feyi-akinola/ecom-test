@@ -69,8 +69,7 @@ const Step = forwardRef<HTMLDivElement, StepProps>(({
         gap-md pb-xl`}>
         {/* Products */}
         <div
-          className="flex flex-wrap justify-center px-md-4"
-          style={{ gap: "var(--gap-md-4, 1rem)" }}>
+          className="w-full flex flex-wrap justify-center px-md-4 gap-md-4">
           {products.map((p) => (
             <div
               key={p.id}

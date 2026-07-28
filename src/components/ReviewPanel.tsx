@@ -94,7 +94,7 @@ const ReviewPanel = () => {
           <h2 className="text-lg font-semibold text-alt leading-compact">
             Your security system
           </h2>
-          <p className="text-sm md:text-sm-2 font-medium text-grey leading-tall">
+          <p className="text-sm sm:text-sm-2 font-medium text-grey leading-tall">
             Review your personalized protection system designed to keep what matters most safe.
           </p>
         </div>
@@ -137,7 +137,7 @@ const ReviewPanel = () => {
 
                         <div className="flex flex-1 flex-col gap-xs-5">
                           <p className="text-alt w-2xl-2 font-medium tracking-sm-rel leading-short
-                            text-sm md:text-sm-2">
+                            text-sm sm:text-sm-2">
                             {product.name}
                           </p>
                           {
@@ -160,7 +160,7 @@ const ReviewPanel = () => {
                             disabled={false}
                             light
                           />
-                          <span className="text-center text-sm md:text-sm-2 font-medium">
+                          <span className="text-center text-sm sm:text-sm-2 font-medium">
                             {quantity}
                           </span>
                           
@@ -174,7 +174,7 @@ const ReviewPanel = () => {
                         </div>
 
                         {/* Price */}
-                        <div className="flex flex-col items-end text-sm md:text-sm-2
+                        <div className="flex flex-col items-end text-sm sm:text-sm-2
                           leading-short">
                           {hasDiscount && (
                             <span className="text-fade-dark line-through">
@@ -259,7 +259,7 @@ const ReviewPanel = () => {
           type="button"
           onClick={handleSaveCart}
           className="mt-sm mb-3xl text-center text-grey underline italic
-            cursor-pointer hover:opacity-80 leading-medium text-sm md:text-sm-2
+            cursor-pointer hover:opacity-80 leading-medium text-sm sm:text-sm-2
             transition-opacity duration-200">
           Save my system for later
         </button>

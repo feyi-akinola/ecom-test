@@ -103,7 +103,7 @@
       "options": null,
       "price": 59.98,
       "discountedPrice": null,
-      "image": "/images/wyze-battery-cam-pro.png"
+      "image": "/images/wyze-sense-motion-sensor.png"
     },
     {
       "id": "54cebcb2-c11d-486a-b27d-9ceaebb0f23f",
@@ -137,7 +137,7 @@
       "options": null,
       "price": 20.98,
       "discountedPrice": null,
-      "image": "images/wyze-micro-sd-card-256gb.png"
+      "image": "/images/wyze-micro-sd-card-256gb.png"
     }
   ]
 }

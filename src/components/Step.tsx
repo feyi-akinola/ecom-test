@@ -35,7 +35,7 @@ const Step = ({
 
   return (
     <div
-      className={`flex flex-col rounded-lg ${menuOpen && "bg-category-bg"}`}>
+      className={`flex flex-col md:rounded-lg ${menuOpen && "bg-category-bg"}`}>
       {/* Step count */}
       <p className="step-count leading-compact">Step {index + 1} of 4</p>
 
@@ -70,16 +70,18 @@ const Step = ({
         className={`${!menuOpen && "hidden"} flex flex-col items-center
           gap-md pb-xl`}>
         <div
-          className="w-full grid grid-cols-1 md:grid-cols-2
-            px-md-4 gap-md-4
-            [&>*:last-child:nth-child(odd)]:md:col-span-2
-            [&>*:last-child:nth-child(odd)]:md:justify-self-center
-            [&>*:last-child:nth-child(odd)]:md:w-1/2">
-          {
-            products.map((p, index) =>
-              <ProductCard key={index} product={p} />
-            )
-          }
+          className="flex flex-wrap justify-center px-md-4"
+          style={{ gap: "var(--gap-md-4, 1rem)" }}>
+          {products.map((p) => (
+            <div
+              key={p.id}
+              className="w-full
+                sm:w-[calc((100%-var(--gap-md-4,1rem))/2)]
+                md:w-[calc((100%-2*var(--gap-md-4,1rem))/3)]
+                lg:w-[calc((100%-var(--gap-md-4,1rem))/2)]">
+              <ProductCard product={p} />
+            </div>
+          ))}
         </div>
 
         {/* Next button */}

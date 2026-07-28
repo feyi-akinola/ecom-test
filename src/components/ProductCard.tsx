@@ -1,6 +1,11 @@
 import type { ProductItem } from "../../api/schema";
 import StepperButton from "./StepperButton";
-import { useCartStore, useSelectedOption, useProductQuantity, useProductHasSelection } from "../../store/useCartStore";
+import {
+  useCartStore,
+  useSelectedOption,
+  useProductQuantity,
+  useProductHasSelection
+} from "../../store/useCartStore";
 
 export interface ProductCardProps {
   product: ProductItem;
@@ -35,9 +40,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
     (value: number) => (value === 0 ? "FREE" : `$${value.toFixed(2)}`);
 
   return (
-    <div className={`relative flex gap-4 rounded-lg bg-white p-sm-4
-      border-sm ${hasSelection ? "border-accent" : "border-white"}
-      tracking-sm`}>
+    <div className={`relative flex md:flex-col lg:flex-row gap-4 rounded-lg
+      bg-white p-sm-4 h-full tracking-sm
+      border-sm ${hasSelection ? "border-accent" : "border-white"}`}>
       {/* Discount */}
       {
         hasDiscount && (
@@ -55,7 +60,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <img
             src={image}
             alt={name}
-            className="w-2xl shrink-0 rounded-lg object-contain"
+            className="w-2xl md:w-auto md:h-2xl lg:w-2xl shrink-0 rounded-lg
+              object-contain"
           />
         ) : (
           <div className="size-2xl bg-icon-bg rounded-xl flex

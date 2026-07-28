@@ -43,6 +43,7 @@
   --text-md-3: 18px;
   --text-lg: 22px;
   --text-xl: 24px;
+  --text-2xl: 31.88px;
 
   /* Border Sizes */
   --border-width-xs: 0.5px;
@@ -109,9 +110,11 @@
   --spacing-2xl-2: 25px;
   --spacing-2xl-3: 29px;
   --spacing-3xl: 31px;
+  --spacing-4xl: 49.4px;
 
   /* Letter Spacing */
   --tracking-tight: -5%;
+  --tracking-hug: -0.06%;
   --tracking-none: 0px;
   --tracking-sm-rel: 0.5%;
   --tracking-sm: 0.6px;
@@ -121,6 +124,7 @@
   --leading-short: 16px;
   --leading-track: 24px;
   --leading-compact: 100%;
+  --leading-fit: 110%;
   --leading-medium: 120%;
   --leading-tall: 130%;
 }
@@ -182,16 +186,16 @@
 
 @layer {
   .step-count {
-    @apply text-xs uppercase p-md-4 pb-xs-2 tracking-md font-medium
-      text-grey-alt;
+    @apply text-xs uppercase px-md-4 py-xs-2 md:pt-sm text-grey-alt
+      tracking-md font-medium;
   }
 
   .icon {
-    @apply size-lg bg-icon-bg rounded-xs flex
-      items-center justify-center;
+    @apply size-lg bg-icon-bg rounded-xs flex items-center
+      justify-center;
   }
   
   .title {
-    @apply leading-compact text-lg text-alt font-semibold;
+    @apply leading-compact text-md-3 md:text-lg text-alt font-semibold;
   }
 }

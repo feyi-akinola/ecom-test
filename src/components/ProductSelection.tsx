@@ -59,12 +59,19 @@ const ProductSelection = () => {
   ];
 
   return (
-    <div className="w-full max-w-190 flex flex-col gap-md-2">
-      {
-        categories.map((category, index) =>
-          <Step key={index} category={category} index={index}/>
-        )
-      }
+    <div className="w-full max-w-190 flex flex-col">
+      <h1 className="text-2xl font-bold text-alt pt-xl pb-3xl text-center
+        block md:hidden">
+        Let's Get Started!
+      </h1>
+
+      <div className="flex flex-col md:gap-xs-2">
+        {
+          categories.map((category, index) =>
+            <Step key={index} category={category} index={index}/>
+          )
+        }
+      </div>
     </div>
   );
 };

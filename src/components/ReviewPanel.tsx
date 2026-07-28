@@ -6,6 +6,8 @@ import Button from "./Button";
 import ConfirmationModal from "./ConfirmationModal";
 import { useState } from "react";
 
+type SaveState = "IDLE" | "SAVED" | "ERROR";
+
 interface ReviewPanelSection {
   label: string;
   products: ProductItem[];
@@ -23,6 +25,8 @@ const formatPrice = (value: number) => (value === 0 ? "FREE" : `$${value.toFixed
 
 const ReviewPanel = () => {
   const { data, error } = useProductData();
+  const saveForLater = useCartStore((state) => state.saveForLater);
+  const [saveStatus, setSaveStatus] = useState<SaveState>("IDLE");
   const [isCheckoutOpen, setIsCheckoutOpen] = useState<boolean>(false);
   const quantities = useCartStore((state) => state.quantities);
   const incrementByKey = useCartStore((state) => state.incrementByKey);
@@ -79,10 +83,30 @@ const ReviewPanel = () => {
     0
   );
 
+  const SAVE_STATUS_CONFIG: Record<SaveState, {label: string, style: string}> = {
+    IDLE: {
+      label: "Save my system for later",
+      style: "text-grey",
+    },
+    SAVED: {
+      label: "Saved! Come back anytime.",
+      style: "text-green",
+    },
+    ERROR: {
+      label: "Couldn't save — try again",
+      style: "text-red",
+    },
+  } as const; // Label and styles for "Save for later" button 
+  const { label: saveLabel, style: saveStyle } =
+    SAVE_STATUS_CONFIG[saveStatus] || SAVE_STATUS_CONFIG.IDLE;
+
   const savings = originalSubtotal - subtotal;
 
   const handleSaveCart = () => {
-    //
+    const success = saveForLater();
+    setSaveStatus(success ? "SAVED" : "ERROR");
+
+    setTimeout(() => setSaveStatus("IDLE"), 3000); // Resets message
   }
 
   return (
@@ -94,6 +118,7 @@ const ReviewPanel = () => {
       </p>
 
       <div className="flex flex-col p-xl gap-sm-3">
+        {/* Header */}
         <div className="flex flex-col gap-xs-2">
           <h2 className="text-lg font-semibold text-alt leading-compact">
             Your security system
@@ -146,11 +171,11 @@ const ReviewPanel = () => {
                         <div className="flex flex-1 flex-col gap-xs-5">
                           {
                             isCamUnlimitedPlan ? (
-                              <p className="text-md text-black font-bold leading-full">
+                              <p className="text-md text-black font-bold leading-compact tracking-hug-3">
                                 Cam <span className="text-main">Unlimited</span>
                               </p>
                             ) : (
-                              <p className="text-alt w-2xl-2 font-medium tracking-sm-rel
+                              <p className="text-alt w-2xl-2 font-medium tracking-sm-rel-2
                                 leading-short text-sm sm:text-sm-2">
                                 {product.name}
                               </p>
@@ -178,7 +203,8 @@ const ReviewPanel = () => {
                                 disabled={product.required}
                                 light
                               />
-                              <span className="text-center text-sm sm:text-sm-2 font-medium">
+                              <span className="text-center text-sm sm:text-sm-2 font-medium
+                                tracking-none">
                                 {quantity}
                               </span>
                               
@@ -195,7 +221,7 @@ const ReviewPanel = () => {
 
                         {/* Price */}
                         <div className="flex flex-col items-end text-sm sm:text-sm-2
-                          leading-short">
+                          leading-short tracking-sm-rel-2">
                           {hasDiscount && (
                             <span className="text-fade-dark line-through">
                               ${originalLineTotal.toFixed(2)}
@@ -235,7 +261,7 @@ const ReviewPanel = () => {
           </div>
         </div>
 
-        {/* Satisfaction */}
+        {/* Satisfaction & total*/}
         <div className="flex items-end justify-between gap-md">
           <img
             src={"/images/guarantee.png"}
@@ -250,10 +276,12 @@ const ReviewPanel = () => {
             </span>
 
             <div className="flex items-baseline gap-xs">
-              <span className="text-md-3 text-fade-dark line-through font-medium">
+              <span className="text-md-3 text-fade-dark line-through font-medium
+                 tracking-sm-rel leading-short-2">
                 ${originalSubtotal.toFixed(2)}
               </span>
-              <span className="text-2xl font-bold text-main">
+              <span className="text-2xl font-bold text-main tracking-hug-2
+                leading-track-2">
                 ${subtotal.toFixed(2)}
               </span>
             </div>
@@ -261,6 +289,7 @@ const ReviewPanel = () => {
         </div>
       </div>
 
+      {/* Savings, checkout & save cart */}
       <div className="w-full flex flex-col items-center px-md-4">
         {
           savings > 0 && (
@@ -278,10 +307,11 @@ const ReviewPanel = () => {
         <button
           type="button"
           onClick={handleSaveCart}
-          className="mt-sm mb-3xl text-center text-grey underline italic
-            cursor-pointer hover:opacity-80 leading-medium text-sm sm:text-sm-2
-            transition-opacity duration-200">
-          Save my system for later
+          disabled={saveStatus === "ERROR" || saveStatus === "SAVED"}
+          className={`mt-sm mb-3xl text-center underline italic cursor-pointer
+            hover:opacity-80 leading-medium text-sm sm:text-sm-2
+            transition-opacity duration-200 ${saveStyle}`}>
+          {saveLabel}
         </button>
       </div>
 

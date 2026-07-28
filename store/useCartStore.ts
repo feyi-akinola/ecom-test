@@ -5,6 +5,26 @@ import { initialQuantities, initialSelectedOptions } from "./seedInitialCart";
 
 export { getCartKey };
 
+const STORAGE_KEY = "wyze-bundle-cart";
+
+interface PersistedCart {
+  quantities: Record<string, number>;
+  selectedOptions: Record<string, string | null>;
+}
+
+function loadPersistedCart(): PersistedCart | null {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    return JSON.parse(raw) as PersistedCart;
+  } catch {
+    // Inaccessible storage — fall back to the seed
+    return null;
+  }
+}
+
+const persisted = loadPersistedCart();
+
 export const getDefaultOption = (options: ProductItem["options"]): string | null =>
   options && options.length === 1 ? options[0].id : null;
 
@@ -17,11 +37,12 @@ interface CartState {
   decrement: (product: ProductItem) => void;
   incrementByKey: (product: string, optionId: string | null) => void;
   decrementByKey: (product: string, optionId: string | null) => void;
+  saveForLater: () => boolean;
 }
 
 export const useCartStore = create<CartState>((set, get) => ({
-  quantities: initialQuantities,
-  selectedOptions: initialSelectedOptions,
+  quantities: persisted?.quantities ?? initialQuantities,
+  selectedOptions: persisted?.selectedOptions ?? initialSelectedOptions,
 
   selectOption: (productId, optionId) => {
     set((state) => ({
@@ -52,11 +73,23 @@ export const useCartStore = create<CartState>((set, get) => ({
       quantities: { ...state.quantities, [key]: (state.quantities[key] ?? 0) + 1 },
     }));
   },
+
   decrementByKey: (productId: string, optionId: string | null) => {
     const key = getCartKey(productId, optionId);
     set((state) => ({
       quantities: { ...state.quantities, [key]: Math.max(0, (state.quantities[key] ?? 0) - 1) },
     }));
+  },
+
+  saveForLater: () => {
+    const { quantities, selectedOptions } = get();
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ quantities, selectedOptions }));
+      return true;
+    } catch {
+      // Storage disabled/full/private — failure
+      return false;
+    }
   },
 }));
 

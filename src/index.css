@@ -118,15 +118,20 @@
 
   /* Letter Spacing */
   --tracking-tight: -5%;
+  --tracking-hug-3: -0.2%;
+  --tracking-hug-2: -0.13%;
   --tracking-hug: -0.06%;
   --tracking-none: 0px;
-  --tracking-sm-rel: 0.5%;
+  --tracking-sm-rel: 0.25%;
+  --tracking-sm-rel-2: 0.5%;
   --tracking-sm: 0.6px;
   --tracking-md: 1.6px;
 
   /* Line Height */
   --leading-short: 16px;
+  --leading-short-2: 20px;
   --leading-track: 24px;
+  --leading-track-2: 32px;
   --leading-compact: 100%;
   --leading-fit: 110%;
   --leading-medium: 120%;

@@ -48,13 +48,15 @@ const CheckoutModal = ({ isOpen, onClose, total, savings }: CheckoutModalProps) 
         aria-labelledby="checkout-modal-title"
         onClick={(e) => e.stopPropagation()}
         className="w-3xl rounded-xl bg-white p-2xl-3 flex flex-col items-center
-          gap-md text-center shadow-xl">
+          gap-xl text-center shadow-xl">
 
         <div className="flex flex-col gap-xs">
-          <h2 id="checkout-modal-title" className="text-xl font-bold text-alt">
+          <h2
+            id="checkout-modal-title"
+            className="text-lg font-semibold text-alt leading-compact">
             Order confirmed! 🎉
           </h2>
-          <p className="text-sm-2 text-alt font-medium leading-tall">
+          <p className="text-sm sm:text-sm-2 font-medium text-grey leading-tall">
             Thanks for building your security system with us. An invoice of your
             purchase is on its way to your inbox!
           </p>
@@ -65,14 +67,14 @@ const CheckoutModal = ({ isOpen, onClose, total, savings }: CheckoutModalProps) 
           <span className="text-sm-2 text-alt font-medium">
             Total charged
             </span>
-          <span className="text-lg font-bold text-green">
+          <span className="text-xl font-bold text-green">
             ${total.toFixed(2)}
           </span>
         </div>
 
         {
           savings > 0 && (
-            <p className="text-sm-2 font-semibold text-main">
+            <p className="text-sm-2 font-semibold text-green">
               You saved ${savings.toFixed(2)} on this order!
             </p>
           )

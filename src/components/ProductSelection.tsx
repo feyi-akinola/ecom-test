@@ -1,6 +1,7 @@
 import Step from "./Step";
 import { useProductData } from "../../hooks/useProductData";
 import type { ProductItem } from "../../api/schema";
+import { useEffect, useRef, useState } from "react";
 
 export interface Category {
   title: string;
@@ -11,6 +12,17 @@ export interface Category {
 
 const ProductSelection = () => {
   const {data, error} = useProductData();
+  const [openStepIndex, setOpenStepIndex] = useState<number>(0);
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    if (openStepIndex < 1) return;
+
+    stepRefs.current[openStepIndex]?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, [openStepIndex]);
 
   if (error) {
     return (
@@ -57,7 +69,7 @@ const ProductSelection = () => {
       products: data.protection,
     },
   ];
-
+  
   return (
     <div className="w-full max-w-190 flex flex-col">
       <h1 className="text-2xl font-bold text-alt pt-xl pb-3xl text-center
@@ -68,7 +80,14 @@ const ProductSelection = () => {
       <div className="flex flex-col md:gap-xs-2">
         {
           categories.map((category, index) =>
-            <Step key={index} category={category} index={index}/>
+            <Step
+              key={index}
+              ref={(el) => { stepRefs.current[index] = el; }}
+              category={category}
+              index={index}
+              isOpen={openStepIndex === index}
+              onToggle={() => setOpenStepIndex((prev) => (prev === index ? -1 : index))}
+              onNext={() => setOpenStepIndex(index + 1)}/>
           )
         }
       </div>

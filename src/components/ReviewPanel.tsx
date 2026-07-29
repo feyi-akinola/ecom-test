@@ -113,222 +113,222 @@ const ReviewPanel = () => {
   }
 
   return (
-    <AnimatedElement index={0}>
-      <div className="w-full lg:w-container-review max-w-container-builder h-full md:rounded-lg
+    <AnimatedElement
+      index={0}
+      className="w-full lg:w-container-review max-w-container-builder h-full md:rounded-lg
         bg-category-bg flex min-w-review flex-col">
-        <p className="text-sm font-medium tracking-md text-grey-alt uppercase
-          leading-compact p-md-4 pb-xs-2">
-          Review
-        </p>
+      <p className="text-sm font-medium tracking-md text-grey-alt uppercase
+        leading-compact p-md-4 pb-xs-2">
+        Review
+      </p>
 
-        <div className="flex flex-col p-xl gap-sm-3">
-          {/* Header */}
-          <div className="flex flex-col gap-xs-2">
-            <h2 className="text-lg font-semibold text-alt leading-compact">
-              Your security system
-            </h2>
-            <p className="text-sm sm:text-sm-2 font-medium text-grey leading-tall">
-              Review your personalized protection system designed to keep what matters most safe.
-            </p>
-          </div>
-          
-          {/* Categories */}
-          {
-            sections.map((section, sectionIndex) => {
-              const lines = getLineItems(section.products);
-              if (lines.length === 0) return null;
+      <div className="flex flex-col p-xl gap-sm-3">
+        {/* Header */}
+        <div className="flex flex-col gap-xs-2">
+          <h2 className="text-lg font-semibold text-alt leading-compact">
+            Your security system
+          </h2>
+          <p className="text-sm sm:text-sm-2 font-medium text-grey leading-tall">
+            Review your personalized protection system designed to keep what matters most safe.
+          </p>
+        </div>
+        
+        {/* Categories */}
+        {
+          sections.map((section, sectionIndex) => {
+            const lines = getLineItems(section.products);
+            if (lines.length === 0) return null;
 
-              return (
-                <AnimatedElement
-                  key={section.label}
-                  index={sectionIndex}
-                  className="flex flex-col gap-sm border-t-xs border-fade-light pt-md-4">
-                  <p className="text-sm tracking-wide text-fade uppercase">
-                    {section.label}
-                  </p>
+            return (
+              <AnimatedElement
+                key={section.label}
+                index={sectionIndex}
+                className="flex flex-col gap-sm border-t-xs border-fade-light pt-md-4">
+                <p className="text-sm tracking-wide text-fade uppercase">
+                  {section.label}
+                </p>
 
-                  {/* Items */}
-                  {lines.map((line, lineIndex) => {
-                    const { product, optionId, optionName, quantity } = line;
+                {/* Items */}
+                {lines.map((line, lineIndex) => {
+                  const { product, optionId, optionName, quantity } = line;
 
-                    const unitPrice = product.discountedPrice ?? product.price;
-                    const lineTotal = unitPrice * quantity;
-                    const originalLineTotal = product.price * quantity;
+                  const unitPrice = product.discountedPrice ?? product.price;
+                  const lineTotal = unitPrice * quantity;
+                  const originalLineTotal = product.price * quantity;
 
-                    const hasDiscount =
-                      typeof product.discountedPrice === "number" &&
-                      product.discountedPrice < product.price;
+                  const hasDiscount =
+                    typeof product.discountedPrice === "number" &&
+                    product.discountedPrice < product.price;
 
-                    const isCamUnlimitedPlan = product.name === "Cam Unlimited";
+                  const isCamUnlimitedPlan = product.name === "Cam Unlimited";
 
-                    return (
-                      <AnimatedElement
-                        key={getCartKey(product.id, optionId)}
-                        index={lineIndex}
-                        className="flex justify-between">
-                        {/* Image and name */}
-                        <div className={`flex items-center ${isCamUnlimitedPlan ? "gap-xs-4" : "gap-md"}`}>
-                          <img
-                            src={product.image ?? ""}
-                            alt={product.name}
-                            className={
-                              isCamUnlimitedPlan ? "w-sm-2"
-                              : "size-lg-2 shrink-0 rounded-sm-2 object-contain"}
-                          />
+                  return (
+                    <AnimatedElement
+                      key={getCartKey(product.id, optionId)}
+                      index={lineIndex}
+                      className="flex justify-between">
+                      {/* Image and name */}
+                      <div className={`flex items-center ${isCamUnlimitedPlan ? "gap-xs-4" : "gap-md"}`}>
+                        <img
+                          src={product.image ?? ""}
+                          alt={product.name}
+                          className={
+                            isCamUnlimitedPlan ? "w-sm-2"
+                            : "size-lg-2 shrink-0 rounded-sm-2 object-contain"}
+                        />
 
-                          <div className="flex flex-1 flex-col gap-xs-5">
-                            {
-                              isCamUnlimitedPlan ? (
-                                <p className="text-md text-black font-bold leading-compact tracking-hug-3">
-                                  Cam <span className="text-main">Unlimited</span>
-                                </p>
-                              ) : (
-                                <p className="text-alt w-2xl-2 font-medium tracking-sm-rel-2
-                                  leading-short text-sm sm:text-sm-2">
-                                  {product.name}
-                                </p>
-                              )
-                            }
-                            {
-                              optionName && (
-                                <p className="text-xs font-medium text-fade-dark">
-                                  {optionName}
-                                </p>
-                              )
-                            }
-                          </div>
-                        </div>
-
-                        <div className="flex gap-md items-center">
-                          {/* Stepper */}
+                        <div className="flex flex-1 flex-col gap-xs-5">
                           {
-                            !product.noIncrement && (
-                              <div className="flex justify-between w-lg-3">
-                                <StepperButton
-                                  onClick={() => decrementByKey(product.id, optionId)}
-                                  ariaLabel={`Reduce quantity of ${product.name}`}
-                                  icon="src/assets/svg/remove.svg"
-                                  disabled={product.required ?? false}
-                                  light
-                                />
-                                <span className="text-center text-sm sm:text-sm-2 font-medium
-                                  tracking-none">
-                                  {quantity}
-                                </span>
-                                
-                                <StepperButton
-                                  onClick={() => incrementByKey(product.id, optionId)}
-                                  ariaLabel={`Increase quantity of ${product.name}`}
-                                  icon="src/assets/svg/add.svg"
-                                  disabled={product.required ?? false}
-                                  light
-                                />
-                              </div>
+                            isCamUnlimitedPlan ? (
+                              <p className="text-md text-black font-bold leading-compact tracking-hug-3">
+                                Cam <span className="text-main">Unlimited</span>
+                              </p>
+                            ) : (
+                              <p className="text-alt w-2xl-2 font-medium tracking-sm-rel-2
+                                leading-short text-sm sm:text-sm-2">
+                                {product.name}
+                              </p>
                             )
                           }
-
-                          {/* Price */}
-                          <div className="flex flex-col items-end text-sm sm:text-sm-2
-                            leading-short tracking-sm-rel-2">
-                            {hasDiscount && (
-                              <span className="text-fade-dark line-through">
-                                ${originalLineTotal.toFixed(2)}
-                              </span>
-                            )}
-                            <span className={`font-semibold ${lineTotal === 0 ? "text-green" : "text-main"}`}>
-                              {formatPrice(lineTotal)}
-                            </span>
-                          </div>
+                          {
+                            optionName && (
+                              <p className="text-xs font-medium text-fade-dark">
+                                {optionName}
+                              </p>
+                            )
+                          }
                         </div>
-                      </AnimatedElement>
-                    );
-                  })}
-                </AnimatedElement>
-              );
-            })
-          }
+                      </div>
 
-          { /* Fast Shipping */ }
-          <div className="flex items-center gap-sm-4 border-t-xs border-fade-light pt-md">
-            <div className="size-lg-2 shrink-0 rounded-lg bg-white flex items-center justify-center">
-              <img
-                src="src/assets/svg/shipping.svg"
-                alt="Fast Shipping"
-                className="w-md-2" />
-            </div>
-            <p className="flex-1 text-sm-2 text-dark font-medium">
-              Fast Shipping
-            </p>
-            <div className="flex flex-col items-end gap-xs-4 text-sm-2">
-              <span className="text-fade-dark line-through">
-                $5.99
-              </span>
-              <span className="font-semibold text-green">
-                FREE
-              </span>
-            </div>
-          </div>
+                      <div className="flex gap-md items-center">
+                        {/* Stepper */}
+                        {
+                          !product.noIncrement && (
+                            <div className="flex justify-between w-lg-3">
+                              <StepperButton
+                                onClick={() => decrementByKey(product.id, optionId)}
+                                ariaLabel={`Reduce quantity of ${product.name}`}
+                                icon="src/assets/svg/remove.svg"
+                                disabled={product.required ?? false}
+                                light
+                              />
+                              <span className="text-center text-sm sm:text-sm-2 font-medium
+                                tracking-none">
+                                {quantity}
+                              </span>
+                              
+                              <StepperButton
+                                onClick={() => incrementByKey(product.id, optionId)}
+                                ariaLabel={`Increase quantity of ${product.name}`}
+                                icon="src/assets/svg/add.svg"
+                                disabled={product.required ?? false}
+                                light
+                              />
+                            </div>
+                          )
+                        }
 
-          {/* Satisfaction & total*/}
-          <div className="flex items-end justify-between gap-md">
+                        {/* Price */}
+                        <div className="flex flex-col items-end text-sm sm:text-sm-2
+                          leading-short tracking-sm-rel-2">
+                          {hasDiscount && (
+                            <span className="text-fade-dark line-through">
+                              ${originalLineTotal.toFixed(2)}
+                            </span>
+                          )}
+                          <span className={`font-semibold ${lineTotal === 0 ? "text-green" : "text-main"}`}>
+                            {formatPrice(lineTotal)}
+                          </span>
+                        </div>
+                      </div>
+                    </AnimatedElement>
+                  );
+                })}
+              </AnimatedElement>
+            );
+          })
+        }
+
+        { /* Fast Shipping */ }
+        <div className="flex items-center gap-sm-4 border-t-xs border-fade-light pt-md">
+          <div className="size-lg-2 shrink-0 rounded-lg bg-white flex items-center justify-center">
             <img
-              src={"/images/guarantee.png"}
-              alt={"Satisfaction Badge "}
-              className="size-lg-4 shrink-0 object-contain"
-            />
-
-            <div className="flex flex-col items-end gap-xs">
-              <span className="rounded-xs-3 bg-main px-sm py-xs-2 text-sm font-medium
-                text-white leading-compact tracking-tight">
-                as low as $19.19/mo
-              </span>
-
-              <div className="flex items-baseline gap-xs">
-                <span className="text-md-3 text-fade-dark line-through font-medium
-                  tracking-sm-rel leading-short-2">
-                  ${originalSubtotal.toFixed(2)}
-                </span>
-                <span className="text-2xl font-bold text-main tracking-hug-2
-                  leading-track-2">
-                  ${subtotal.toFixed(2)}
-                </span>
-              </div>
-            </div>
+              src="src/assets/svg/shipping.svg"
+              alt="Fast Shipping"
+              className="w-md-2" />
+          </div>
+          <p className="flex-1 text-sm-2 text-dark font-medium">
+            Fast Shipping
+          </p>
+          <div className="flex flex-col items-end gap-xs-4 text-sm-2">
+            <span className="text-fade-dark line-through">
+              $5.99
+            </span>
+            <span className="font-semibold text-green">
+              FREE
+            </span>
           </div>
         </div>
 
-        {/* Savings, checkout & save cart */}
-        <div className="w-full flex flex-col items-center px-md-4">
-          {
-            savings > 0 && (
-              <p className="text-sm font-semibold text-green mb-xs-3">
-                Congrats! You're saving ${savings.toFixed(2)} on your security bundle!
-              </p>
-            )
-          }
+        {/* Satisfaction & total*/}
+        <div className="flex items-end justify-between gap-md">
+          <img
+            src={"/images/guarantee.png"}
+            alt={"Satisfaction Badge "}
+            className="size-lg-4 shrink-0 object-contain"
+          />
 
-          <Button
-            onClick={() => setIsCheckoutOpen(true)}
-            disabled={isCartEmpty}
-            text="Checkout"/>
+          <div className="flex flex-col items-end gap-xs">
+            <span className="rounded-xs-3 bg-main px-sm py-xs-2 text-sm font-medium
+              text-white leading-compact tracking-tight">
+              as low as $19.19/mo
+            </span>
 
-          <button
-            type="button"
-            onClick={handleSaveCart}
-            disabled={saveStatus === "ERROR" || saveStatus === "SAVED"}
-            className={`mt-sm mb-3xl text-center underline italic cursor-pointer
-              hover:opacity-80 leading-medium text-sm sm:text-sm-2
-              transition-opacity duration-200 ${saveStyle}`}>
-            {saveLabel}
-          </button>
+            <div className="flex items-baseline gap-xs">
+              <span className="text-md-3 text-fade-dark line-through font-medium
+                tracking-sm-rel leading-short-2">
+                ${originalSubtotal.toFixed(2)}
+              </span>
+              <span className="text-2xl font-bold text-main tracking-hug-2
+                leading-track-2">
+                ${subtotal.toFixed(2)}
+              </span>
+            </div>
+          </div>
         </div>
-
-        <ConfirmationModal
-          isOpen={isCheckoutOpen}
-          onClose={() => setIsCheckoutOpen(false)}
-          total={subtotal}
-          savings={savings}/>
       </div>
+
+      {/* Savings, checkout & save cart */}
+      <div className="w-full flex flex-col items-center px-md-4">
+        {
+          savings > 0 && (
+            <p className="text-sm font-semibold text-green mb-xs-3">
+              Congrats! You're saving ${savings.toFixed(2)} on your security bundle!
+            </p>
+          )
+        }
+
+        <Button
+          onClick={() => setIsCheckoutOpen(true)}
+          disabled={isCartEmpty}
+          text="Checkout"/>
+
+        <button
+          type="button"
+          onClick={handleSaveCart}
+          disabled={saveStatus === "ERROR" || saveStatus === "SAVED"}
+          className={`mt-sm mb-3xl text-center underline italic cursor-pointer
+            hover:opacity-80 leading-medium text-sm sm:text-sm-2
+            transition-opacity duration-200 ${saveStyle}`}>
+          {saveLabel}
+        </button>
+      </div>
+
+      <ConfirmationModal
+        isOpen={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
+        total={subtotal}
+        savings={savings}/>
     </AnimatedElement>
   );
 };

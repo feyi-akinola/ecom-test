@@ -3,6 +3,7 @@ import ProductCard from "./ProductCard";
 import NextButton from "./NextButton";
 import { useCartStore, getCartKey } from "../../store/useCartStore";
 import { forwardRef } from "react";
+import AnimatedElement from "./AnimatedElement";
 
 type StepProps = {
   category: Category;
@@ -75,15 +76,16 @@ const Step = forwardRef<HTMLDivElement, StepProps>(({
         {/* Products */}
         <div
           className="w-full flex flex-wrap justify-center px-md-4 gap-md-4">
-          {products.map((p) => (
-            <div
+          {products.map((p, pIndex) => (
+            <AnimatedElement
               key={p.id}
+              index={pIndex}
               className="w-full
                 sm:w-[calc((100%-var(--gap-md-4,1rem))/2)]
                 md:w-[calc((100%-2*var(--gap-md-4,1rem))/3)]
                 lg:w-[calc((100%-var(--gap-md-4,1rem))/2)]">
               <ProductCard product={p} />
-            </div>
+            </AnimatedElement>
           ))}
         </div>
 

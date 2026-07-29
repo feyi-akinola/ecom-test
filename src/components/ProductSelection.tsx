@@ -3,6 +3,7 @@ import { useProductData } from "../../hooks/useProductData";
 import type { ProductItem } from "../../api/schema";
 import { useEffect, useRef, useState } from "react";
 import Error from "./Error";
+import AnimatedElement from "./AnimatedElement";
 
 export interface Category {
   title: string;
@@ -83,14 +84,16 @@ const ProductSelection = () => {
       <div className="flex flex-col md:gap-xs-2">
         {
           categories.map((category, index) =>
-            <Step
-              key={index}
-              ref={(el) => { stepRefs.current[index] = el; }}
-              category={category}
-              index={index}
-              isOpen={openStepIndex === index}
-              onToggle={() => setOpenStepIndex((prev) => (prev === index ? -1 : index))}
-              onNext={() => setOpenStepIndex(index + 1)}/>
+            <AnimatedElement key={category.title} index={index}>
+              <Step
+                key={index}
+                ref={(el) => { stepRefs.current[index] = el; }}
+                category={category}
+                index={index}
+                isOpen={openStepIndex === index}
+                onToggle={() => setOpenStepIndex((prev) => (prev === index ? -1 : index))}
+                onNext={() => setOpenStepIndex(index + 1)}/>
+            </AnimatedElement>
           )
         }
       </div>

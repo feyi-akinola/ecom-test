@@ -17,7 +17,7 @@ const AnimatedElement = ({
     <div
       className={`animate-fade-in-up ${className}`}
       style={{
-        animationDelay: `${(index * 100) + ((delay ?? 100))}ms`,
+        animationDelay: `${(index * 60) + ((delay ?? 80))}ms`,
         animationFillMode: "backwards"
       }}>
       {children}
